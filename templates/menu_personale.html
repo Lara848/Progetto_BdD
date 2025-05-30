@@ -8,27 +8,21 @@
 
 <div class="container mt-4">
   <div class="row">
-    <!-- Pulsanti sinistra -->
-    <div class="col-md-3 d-flex flex-column gap-3">
-      <button type="button" class="btn btn-primary">Esegui Ordine</button>
-      <button type="button" class="btn btn-secondary">Storico degli ordini</button>
+    <!-- Colonna sinistra: Pulsanti -->
+    <div class="col-md-3">
+      <div class="d-flex flex-column gap-3">
+        <button type="button" class="btn btn-primary mb-2">Esegui Ordine</button>
+        <button type="button" class="btn btn-secondary">Storico degli ordini</button>
+      </div>
     </div>
 
-    <!-- Form destra -->
+    <!-- Colonna destra: Form dati aggiornabili -->
     <div class="col-md-9">
       <form method="post" action="/update_client_data">
         {% csrf_token %}
 
-        <!-- Mostro solo i campi relativi al ruolo -->
         {% if cliente.ruolo == "Privato" %}
-          <div class="mb-3">
-            <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="{{ cliente.nome }}">
-          </div>
-          <div class="mb-3">
-            <label for="cognome" class="form-label">Cognome</label>
-            <input type="text" class="form-control" id="cognome" name="cognome" value="{{ cliente.cognome }}">
-          </div>
+          <!-- Campi per Privato (aggiungi qui se necessario) -->
         {% elif cliente.ruolo == "Commerciale" %}
           <div class="mb-3">
             <label for="ragione_sociale" class="form-label">Ragione Sociale</label>
@@ -37,6 +31,14 @@
           <div class="mb-3">
             <label for="partita_iva" class="form-label">Partita IVA</label>
             <input type="text" class="form-control" id="partita_iva" name="partita_iva" value="{{ cliente.partita_iva }}">
+          </div>
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="{{ cliente.nome }}">
+          </div>
+          <div class="mb-3">
+            <label for="cognome" class="form-label">Cognome</label>
+            <input type="text" class="form-control" id="cognome" name="cognome" value="{{ cliente.cognome }}">
           </div>
         {% endif %}
 
@@ -50,5 +52,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}
