@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home - Tenuta Beltrani{% endblock %}
+{% block content %}
+<div class="fourth-bar">
+        <div class="text-column">
+            <div class="text">
+                <div class="upper">DAL 2000</div>
+                <div class="middle">FINO</div>
+                <div class="lower">AD OGGI</div>
+            </div>
+        </div>
+        <div class="image-column">
+            <img src="{% static 'img/inizio1.jpg' %}" alt="Immagine 1">
+        </div>
+        <div class="text-column">
+            <div class="text">
+                <div class="upper">Azienda</div>
+                <div class="middle">A CONDUZIONE</div>
+                <div class="lower">FAMILIARE</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

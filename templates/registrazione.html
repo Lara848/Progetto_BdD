@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrazione Cliente - Tenuta Beltrani{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Registrazione</h2>
+
+                <form method="post" action="/registration_client">
+                    {% csrf_token %}
+
+                    <!-- Ruolo -->
+                    <div class="mb-3">
+                        <label for="ruolo" class="form-label">Ruolo:</label>
+                        <select class="form-select" id="ruolo" name="ruolo" required onchange="this.form.submit()">
+                            <option value="">Seleziona ruolo</option>
+                            <option value="Privato" {% if ruolo == 'Privato' %}selected{% endif %}>Privato</option>
+                            <option value="Commerciale" {% if ruolo == 'Commerciale' %}selected{% endif %}>Commerciale</option>
+                        </select>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ email }}" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+
+                    <!-- Campi specifici in base al ruolo -->
+                    {% if ruolo == 'Privato' %}
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" value="{{ nome }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cognome" class="form-label">Cognome:</label>
+                            <input type="text" class="form-control" id="cognome" name="cognome" value="{{ cognome }}">
+                        </div>
+                    {% elif ruolo == 'Commerciale' %}
+                        <div class="mb-3">
+                            <label for="ragione_sociale" class="form-label">Ragione Sociale:</label>
+                            <input type="text" class="form-control" id="ragione_sociale" name="ragione_sociale" value="{{ ragione_sociale }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="partita_iva" class="form-label">Partita IVA:</label>
+                            <input type="text" class="form-control" id="partita_iva" name="partita_iva" value="{{ partita_iva }}">
+                        </div>
+                    {% endif %}
+
+                    {{ error_message }}
+
+                    {% if ruolo %}
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary">Registrati</button>
+                        </div>
+                    {% endif %}
+
+                    <p class="mb-0 text-center">Hai già un account?
+                        <a href="/login" style="text-decoration: none; color: #007bff;">Accedi</a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
