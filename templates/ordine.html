@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ordine - Tenuta Beltrani{% endblock %}
+{% block content %}
+<h1 align="center">Benvenuto nell'Area Personale</h1>
+
+<div class="container">
+  <div class="left-col">
+    <h2>MENU</h2>
+    <a href="/ordine" class="menu-link">Esegui ordini</a>
+    <a href="#" class="menu-link">Storico degli ordini</a>
+
+    <form method="post" action="{% url 'personale' %}">
+      {% csrf_token %}
+      <button type="submit" class="menu-link logout-link">Logout</button>
+    </form>
+  </div>
+
+  <div class="right-col">
+    <form method="post" action="/ordina_multipli">
+        {% csrf_token %}
+        <div class="row">
+            {% for prodotto in prodotti %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 d-flex flex-column justify-content-between">
+                    <!-- Immagine -->
+                    <img src="{{ prodotto.immagine.url }}" class="card-img-top" alt="{{ prodotto.nome }}" style="height: 200px; object-fit: cover;">
+
+                    <div class="card-body">
+                        <!-- Nome -->
+                        <h5 class="card-title">{{ prodotto.nome }}</h5>
+                        <!-- Formato -->
+                        <p class="card-text"><strong>Formato:</strong> {{ prodotto.formato }}</p>
+
+                        <!-- Quantità -->
+                        <div class="mb-3">
+                            <label for="quantita_{{ prodotto.id }}" class="form-label">Quantità:</label>
+                            <select class="form-select" id="quantita_{{ prodotto.id }}" name="quantita_{{ prodotto.id }}">
+                                <option value="" selected>Nessuna</option>
+                                {% for i in 1|to:10 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pulsante unico alla fine -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg">Ordina</button>
+        </div>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

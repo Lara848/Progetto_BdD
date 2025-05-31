@@ -18,7 +18,7 @@ Including another URLconf
 from django.urls import path
 
 from Tenuta.views import index, personale, amministrazione, login, registration, registration_page, menu_personale, \
-    login_responsabile, menu_amministrazione
+    login_responsabile, menu_amministrazione, ordine, ordina_multipli
 
 urlpatterns = [
     #    path('admin/', admin.site.urls),
@@ -32,6 +32,10 @@ urlpatterns = [
     path('registration_page', registration_page, name="registration_page"),
 
     path('menu_personale', menu_personale, name="menu_personale"),
+
+    path('ordine', ordine, name="ordine" ),
+
+    path('ordina_multipli', ordina_multipli, name="ordina_multipli"),
 
     path('amministrazione', amministrazione, name="amministrazione"),
 

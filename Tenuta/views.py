@@ -1,9 +1,10 @@
 import hashlib
+from audioop import reverse
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from Tenuta.models import Cliente, Responsabile
+from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine
 
 
 # Create your views here.
@@ -128,6 +129,30 @@ def menu_personale(request):
 def registration_page(request):
     return render(request, 'registrazione.html', {})
 
+def ordine(request):
+    return render(request, 'ordine.html', {})
+
+
+def ordina_multipli(request):
+    prodotti = Prodotto.objects.all()
+
+    # Creiamo un nuovo ordine
+    ordine = Ordine.objects.create()
+
+    # Aggiungiamo i prodotti ordinati
+    for prodotto in prodotti:
+        key = f"quantita_{prodotto.id}"
+        quantita = request.POST.get(key)
+        if quantita and quantita.isdigit() and int(quantita) > 0:
+            Dettaglio_ordine.objects.create(
+                ordine=ordine,
+                prodotto=prodotto,
+                quantita=int(quantita)
+            )
+
+    # Reindirizziamo a una pagina dove l’utente completa i dati
+    # Passiamo l'id ordine nella query string o url
+    return redirect(reverse('completa_ordine', kwargs={'ordine_id': ordine.id}))
 
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
