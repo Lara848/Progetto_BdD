@@ -132,6 +132,9 @@ def registration_page(request):
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
 
+def menu_amministrazione(request):
+    return render(request, 'menu_amministrazione.html', {})
+
 def login_responsabile(request):
     if request.method == "POST":
         email = request.POST.get('email')
