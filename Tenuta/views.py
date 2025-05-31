@@ -1,8 +1,9 @@
 import hashlib
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from Tenuta.models import Cliente
+from Tenuta.models import Cliente, Responsabile
 
 
 # Create your views here.
@@ -13,14 +14,26 @@ def index(request):
 def authenticated(email, password):
     return Cliente.objects.filter(email=email, password=password)
 
+def authenticated_responsabile(email, password):
+    return Responsabile.objects.filter(email=email, password=password).exists()
+
+from Tenuta.models import Cliente
+
 def login(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
         hashed_password = hashlib.md5(password.encode()).hexdigest()
 
-        if(authenticated(email, hashed_password)):
-            return render(request, 'menu_personale.html', {'email': email})
+        if authenticated(email, hashed_password):
+            cliente = Cliente.objects.get(email=email)
+
+            # Salva email nella sessione (opzionale ma utile per successive richieste)
+            request.session['email'] = email
+
+            return render(request, 'menu_personale.html', {
+                'cliente': cliente
+            })
         else:
             return render(request, 'personale.html', {'error_message': "Credenziali non valide, riprova"})
     else:
@@ -91,7 +104,7 @@ def registration(request):
             partita_iva=partita_iva
         )
 
-        return render(request, 'menu_personale.html', {
+        return render(request, 'personale.html', {
             'success_message': "Registrazione avvenuta con successo"
         })
 
@@ -100,14 +113,37 @@ def registration(request):
             'error_message': "Metodo non valido"
         })
 
+@login_required
+def menu_personale(request):
+    email = request.session.get('email')
+    cliente = Cliente.objects.filter(email=email).first()
+
+    if not cliente:
+        return redirect('personale')  # Oppure mostra errore
+
+    return render(request, 'menu_personale.html', {
+        'cliente': cliente
+    })
 
 def registration_page(request):
     return render(request, 'registrazione.html', {})
 
-def menu_personale(request):
-    return render(request, 'menu_personale.html', {})
+
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
+
+def login_responsabile(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        hashed_password = hashlib.md5(password.encode()).hexdigest()
+
+        if authenticated_responsabile(email, hashed_password):
+            return render(request, 'menu_amministrazione.html', {'email': email})  # o 'menu_responsabile.html'
+        else:
+            return render(request, 'amministrazione.html', {'error_message': "Credenziali non valide, riprova"})
+    else:
+        return render(request, 'amministrazione.html', {'error_message': "Metodo non valido"})
 
 def personale(request):
     return render(request, 'personale.html', {})

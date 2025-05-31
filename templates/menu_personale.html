@@ -4,52 +4,146 @@
 {% block title %}Area Personale - Tenuta Beltrani{% endblock %}
 
 {% block content %}
-<h1>Benvenuto nell'Area Personale</h1>
+<h1 align="center">Benvenuto nell'Area Personale</h1>
 
-<div class="container mt-4">
-  <div class="row">
-    <!-- Colonna sinistra: Pulsanti -->
-    <div class="col-md-3">
-      <div class="d-flex flex-column gap-3">
-        <button type="button" class="btn btn-primary mb-2">Esegui Ordine</button>
-        <button type="button" class="btn btn-secondary">Storico degli ordini</button>
+<div class="container">
+  <div class="left-col">
+    <h2>MENU</h2>
+    <a href="#" class="menu-link">Esegui ordini</a>
+    <a href="#" class="menu-link">Storico degli ordini</a>
+
+    <form method="post" action="{% url 'personale' %}">
+      {% csrf_token %}
+      <button type="submit" class="menu-link logout-link">Logout</button>
+    </form>
+  </div>
+
+  <div class="right-col">
+    <h3>Dati anagrafici</h3>
+
+    {% if cliente.ruolo == "Commerciale" %}
+      <div class="mb-3">
+        <label>Ragione Sociale</label>
+        <p>{{ cliente.ragione_sociale }}</p>
       </div>
-    </div>
+      <div class="mb-3">
+        <label>Partita IVA</label>
+        <p>{{ cliente.partita_iva }}</p>
+      </div>
+    {% elif cliente.ruolo == "Privato" %}
+      <div class="mb-3">
+        <label>Nome</label>
+        <p>{{ cliente.nome }}</p>
+      </div>
+      <div class="mb-3">
+        <label>Cognome</label>
+        <p>{{ cliente.cognome }}</p>
+      </div>
+    {% endif %}
 
-    <!-- Colonna destra: Form dati aggiornabili -->
-    <div class="col-md-9">
-      <form method="post" action="/update_client_data">
-        {% csrf_token %}
-
-        {% if cliente.ruolo == "Privato" %}
-          <!-- Campi per Privato (aggiungi qui se necessario) -->
-        {% elif cliente.ruolo == "Commerciale" %}
-          <div class="mb-3">
-            <label for="ragione_sociale" class="form-label">Ragione Sociale</label>
-            <input type="text" class="form-control" id="ragione_sociale" name="ragione_sociale" value="{{ cliente.ragione_sociale }}">
-          </div>
-          <div class="mb-3">
-            <label for="partita_iva" class="form-label">Partita IVA</label>
-            <input type="text" class="form-control" id="partita_iva" name="partita_iva" value="{{ cliente.partita_iva }}">
-          </div>
-          <div class="mb-3">
-            <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="{{ cliente.nome }}">
-          </div>
-          <div class="mb-3">
-            <label for="cognome" class="form-label">Cognome</label>
-            <input type="text" class="form-control" id="cognome" name="cognome" value="{{ cliente.cognome }}">
-          </div>
-        {% endif %}
-
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" name="email" value="{{ cliente.email }}" readonly>
-        </div>
-
-        <button type="submit" class="btn btn-success">Aggiorna Dati</button>
-      </form>
+    <div class="mb-3">
+      <label>Email</label>
+      <p>{{ cliente.email }}</p>
     </div>
   </div>
 </div>
+
+<style>
+  /* Il tuo CSS resta invariato, eccetto la rimozione input e form */
+  .container {
+    display: flex;
+    height: 100vh;
+    font-family: sans-serif;
+  }
+
+  .left-col {
+    width: 200px;
+    background: #f7f7f7;
+    padding: 2rem 1rem;
+    border-right: 1px solid #ddd;
+  }
+
+  .left-col h2 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  .menu-link {
+    display: block;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #000;
+    background: none;
+    border: none;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .menu-link:hover {
+    color: #a3b18a;
+  }
+
+  .logout-link {
+    color: #000000;
+  }
+
+  .logout-link:hover {
+    color: #000000;
+  }
+
+  .left-col form {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    display: block;
+  }
+
+  .left-col form button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #000;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.2s;
+  }
+
+  .left-col form button:hover {
+    color: #a3b18a;
+  }
+
+  .right-col {
+    flex: 1;
+    padding: 2rem;
+    background-color: rgb(247, 247, 247);
+  }
+
+  .mb-3 {
+    margin-bottom: 1.2rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+
+  p {
+    padding: 0.5rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+</style>
 {% endblock %}

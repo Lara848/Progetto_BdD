@@ -30,6 +30,7 @@ urlpatterns = [
 
     path('registration_page', registration_page, name="registration_page"),
 
-    path('menu_persoanle', menu_personale, name="menu_personale"),
+    path('menu_personale', menu_personale, name="menu_personale"),
+
     path('amministrazione', amministrazione, name="amministrazione"),
 ]
