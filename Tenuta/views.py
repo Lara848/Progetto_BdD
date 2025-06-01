@@ -2,9 +2,11 @@ import hashlib
 from audioop import reverse
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.db.models import Prefetch
+from django.shortcuts import render, get_object_or_404
 
-from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo
+from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Gestione, \
+    Esecuzione
 from decimal import Decimal
 from django.utils.timezone import now
 
@@ -117,6 +119,8 @@ def registration(request):
 def registration_page(request):
     return render(request, 'registrazione.html', {})
 
+def personale(request):
+    return render(request, 'personale.html', {})
 @login_required
 def menu_personale(request):
     email = request.session.get('email')
@@ -190,7 +194,7 @@ def pagamento(request, regione=None):
 
         #dizionario delle regioni per determinare il centro distributivo
         regioni_nord = [
-            'Lazio', 'Abruzzo', 'Marche', 'Umbria', 'Toscana', 'Emilia-Romagna',
+            'Lazio', 'Abruzzo', 'Marche', 'Umbria', 'Toscana', 'Emilia Romagna',
             'Liguria', 'Veneto', 'Friuli Venezia Giulia', 'Trentino-Alto Adige',
             'Lombardia', 'Piemonte', 'Valle d\'Aosta'
         ]
@@ -224,6 +228,37 @@ def pagamento(request, regione=None):
             totale=totale
         )
 
+        # Crea i dettagli dell'ordine per ogni prodotto nel carrello
+        for prodotto_id, quantita in carrello.items():
+            try:
+                prodotto = Prodotto.objects.get(id=prodotto_id)
+                prezzo_totale = prodotto.prezzo * quantita
+                Dettaglio_ordine.objects.create(
+                    ordine=ordine,
+                    prodotto=prodotto,
+                    quantita=quantita,
+                    prezzo_total=prezzo_totale
+                )
+
+                # Aggiorna la quantità disponibile del prodotto
+                prodotto.quantita_disponibile -= quantita
+                prodotto.save()
+
+            except Prodotto.DoesNotExist:
+                continue
+
+        # Popola Gestione
+        Gestione.objects.create(
+            ordine=ordine,
+            centro_distributivo=centro_distributivo
+        )
+
+        # Popola Esecuzione
+        Esecuzione.objects.create(
+            ordine=ordine,
+            cliente=cliente
+        )
+
         # Opzionale: cancella il carrello dalla sessione
         if 'carrello' in request.session:
             del request.session['carrello']
@@ -233,13 +268,18 @@ def pagamento(request, regione=None):
     return render(request, 'pagamento.html')
 
 def conferma_ordine(request):
+    # recupero il cliente loggato tramite email
+    email = request.session.get('email')
+    cliente = Cliente.objects.filter(email=email).first()
+
+    if not cliente:
+        return redirect('personale')  # Oppure mostra errore
+
     return render(request, 'conferma_ordine.html')
 
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
 
-def menu_amministrazione(request):
-    return render(request, 'menu_amministrazione.html', {})
 
 def login_responsabile(request):
     if request.method == "POST":
@@ -248,11 +288,45 @@ def login_responsabile(request):
         hashed_password = hashlib.md5(password.encode()).hexdigest()
 
         if authenticated_responsabile(email, hashed_password):
-            return render(request, 'menu_amministrazione.html', {'email': email})  # o 'menu_responsabile.html'
+            # Salva nella sessione che l'admin è loggato (opzionale)
+            request.session['admin_email'] = email
+            return redirect('menu_amministrazione')  # o 'menu_responsabile.html'
         else:
             return render(request, 'amministrazione.html', {'error_message': "Credenziali non valide, riprova"})
     else:
         return render(request, 'amministrazione.html', {'error_message': "Metodo non valido"})
 
-def personale(request):
-    return render(request, 'personale.html', {})
+def menu_amministrazione(request):
+    admin_email = request.session.get('admin_email')
+    responsabile = Responsabile.objects.filter(email=admin_email).first()
+    if not responsabile:
+        return redirect('amministrazione')
+
+    centro = Centro_Distributivo.objects.filter(responsabile=responsabile).first()
+    if not centro:
+        return render(request, 'menu_amministrazione.html', {
+            'ordini': [],
+            'scelte_stato': Ordine.Stato.choices
+        })
+
+    if request.method == "POST":
+        ordine_id = request.POST.get('ordine_id')
+        nuovo_stato = request.POST.get('stato')
+        ordine = get_object_or_404(Ordine, id=ordine_id, centro_distributivo=centro)
+        ordine.stato = nuovo_stato
+        ordine.save()
+        return redirect('menu_amministrazione')
+
+    # Carica ordini con cliente e dettagli ordine con prodotto
+    ordini = Ordine.objects.filter(centro_distributivo=centro).select_related('cliente').prefetch_related(
+            Prefetch('dettaglio_ordine_set', queryset=Dettaglio_ordine.objects.select_related('prodotto'))
+    ).order_by('-data_ordine')
+
+    return render(request, 'menu_amministrazione.html', {
+        'ordini': ordini,
+        'scelte_stato': Ordine.Stato.choices
+    })
+
+def logout_admin(request):
+    request.session.flush()  # Rimuove tutta la sessione (oppure: del request.session['admin_email'])
+    return redirect('amministrazione')
