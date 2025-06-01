@@ -34,7 +34,13 @@
         <tbody>
             {% for ordine in ordini %}
             <tr>
-                <td>{{ ordine.cliente.email }}</td>
+                <td>
+                  {% for esecuzione in ordine.esecuzione_set.all %}
+                    {{ esecuzione.cliente.email }}<br>
+                  {% empty %}
+                    Nessun cliente associato
+                  {% endfor %}
+                </td>
                 <td>{{ ordine.data_ordine }}</td>
                 <td>
                     <strong>Totale:</strong> {{ ordine.totale }} €

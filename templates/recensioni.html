@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Recensioni{% endblock %}
+{% block content %}
+<h1 align="center">Recensioni</h1>
+
+<div class="container" style="display: flex; gap: 40px; padding: 20px;">
+    <!-- Colonna Eventi -->
+    <div style="flex: 1;">
+        <h2>Eventi</h2>
+        {% for recensione in recensioni_eventi %}
+            <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; background-color: #fff; border-radius: 8px;">
+                <p><strong>Cliente:</strong> {{ recensione.cliente.email }}</p>
+                <p><strong>Evento:</strong> {{ recensione.evento.nome }}</p>
+                <p><strong>Valutazione:</strong> {{ recensione.valutazione }}/5</p>
+                <p>{{ recensione.testo }}</p>
+            </div>
+        {% empty %}
+            <p>Nessuna recensione per eventi.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Colonna Prodotti -->
+    <div style="flex: 1;">
+        <h2>Prodotti</h2>
+        {% for recensione in recensioni_prodotti %}
+            <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; background-color: #fff; border-radius: 8px;">
+                <p><strong>Cliente:</strong> {{ recensione.cliente.email }}</p>
+                <p><strong>Prodotto:</strong> {{ recensione.prodotto.nome }}</p>
+                <p><strong>Valutazione:</strong> {{ recensione.valutazione }}/5</p>
+                <p>{{ recensione.testo }}</p>
+            </div>
+        {% empty %}
+            <p>Nessuna recensione per prodotti.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

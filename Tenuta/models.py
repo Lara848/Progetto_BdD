@@ -76,8 +76,6 @@ class Ordine(models.Model):
     indirizzo_spedizione = models.CharField(max_length=255)
     totale = models.DecimalField(max_digits=10, decimal_places=2)
     richiesta_fattura = models.BooleanField(default=False)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    centro_distributivo = models.ForeignKey(Centro_Distributivo, on_delete=models.CASCADE)
 
 class Dettaglio_ordine(models.Model):
     ordine = models.ForeignKey(Ordine, on_delete=models.CASCADE)
@@ -108,7 +106,7 @@ class Evento(models.Model):
     data_evento = models.DateField()
     descrizione = models.TextField()
     luogo_evento = models.CharField(max_length=255)
-    iscrizione = models.BooleanField(default=True)
+    iscrizione = models.IntegerField(default=True)
     prezzo = models.DecimalField(max_digits=8, decimal_places=2)
 
 class Partecipazione_evento(models.Model):
@@ -127,8 +125,8 @@ class Recensione(models.Model):
     testo = models.TextField()
     valutazione = models.PositiveIntegerField()  # ad es. da 1 a 5
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    prodotto = models.ForeignKey(Prodotto, on_delete=models.CASCADE)
-    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    prodotto = models.ForeignKey(Prodotto, on_delete=models.CASCADE, null=True, blank=True)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, null=True, blank=True)
 
 
 

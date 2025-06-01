@@ -6,7 +6,7 @@ from django.db.models import Prefetch
 from django.shortcuts import render, get_object_or_404
 
 from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Gestione, \
-    Esecuzione
+    Esecuzione, Recensione, Evento
 from decimal import Decimal
 from django.utils.timezone import now
 
@@ -173,13 +173,12 @@ def ordina_multipli(request):
 
 
 def pagamento(request, regione=None):
-    # recupero il cliente loggato tramite email
+    # Recupero il cliente loggato tramite email
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
     if not cliente:
-        return redirect('personale')  # Oppure mostra errore
-
+        return redirect('personale')
 
     if request.method == 'POST':
         indirizzo_spedizione = request.POST.get('indirizzo_spedizione')
@@ -188,15 +187,14 @@ def pagamento(request, regione=None):
         metodo_pagamento = request.POST.get('metodo_pagamento')
         richiesta_fattura = bool(request.POST.get('richiesta_fattura'))
 
-        # Disabilito richiesta fattura per clienti privati
         if cliente.ruolo == Cliente.Ruolo.PRIVATO:
             richiesta_fattura = False
 
-        #dizionario delle regioni per determinare il centro distributivo
+        # Determina il centro distributivo in base alla regione
         regioni_nord = [
             'Lazio', 'Abruzzo', 'Marche', 'Umbria', 'Toscana', 'Emilia Romagna',
             'Liguria', 'Veneto', 'Friuli Venezia Giulia', 'Trentino-Alto Adige',
-            'Lombardia', 'Piemonte', 'Valle d\'Aosta'
+            'Lombardia', 'Piemonte', "Valle d'Aosta"
         ]
 
         if regione_spedizione in regioni_nord:
@@ -204,9 +202,7 @@ def pagamento(request, regione=None):
         else:
             centro_distributivo = Centro_Distributivo.objects.get(regione='Puglia')
 
-        # Recupero carrello dalla sessione
         carrello = request.session.get('carrello', {})
-
         totale = Decimal('0.00')
 
         for prodotto_id, quantita in carrello.items():
@@ -214,8 +210,9 @@ def pagamento(request, regione=None):
                 prodotto = Prodotto.objects.get(id=prodotto_id)
                 totale += prodotto.prezzo * quantita
             except Prodotto.DoesNotExist:
-                continue  # ignora prodotti non trovati
+                continue
 
+        # Crea l'ordine (senza cliente e centro_distributivo)
         ordine = Ordine.objects.create(
             indirizzo_spedizione=indirizzo_spedizione,
             regione_spedizione=regione_spedizione,
@@ -223,12 +220,10 @@ def pagamento(request, regione=None):
             metodo_pagamento=metodo_pagamento,
             richiesta_fattura=richiesta_fattura,
             data_ordine=now().date(),
-            cliente=cliente,
-            centro_distributivo=centro_distributivo,
             totale=totale
         )
 
-        # Crea i dettagli dell'ordine per ogni prodotto nel carrello
+        # Crea i dettagli dell'ordine
         for prodotto_id, quantita in carrello.items():
             try:
                 prodotto = Prodotto.objects.get(id=prodotto_id)
@@ -239,31 +234,19 @@ def pagamento(request, regione=None):
                     quantita=quantita,
                     prezzo_total=prezzo_totale
                 )
-
-                # Aggiorna la quantità disponibile del prodotto
                 prodotto.quantita_disponibile -= quantita
                 prodotto.save()
-
             except Prodotto.DoesNotExist:
                 continue
 
-        # Popola Gestione
-        Gestione.objects.create(
-            ordine=ordine,
-            centro_distributivo=centro_distributivo
-        )
+        # Collega l'ordine al cliente (Esecuzione) e al centro distributivo (Gestione)
+        Esecuzione.objects.create(ordine=ordine, cliente=cliente)
+        Gestione.objects.create(ordine=ordine, centro_distributivo=centro_distributivo)
 
-        # Popola Esecuzione
-        Esecuzione.objects.create(
-            ordine=ordine,
-            cliente=cliente
-        )
+        # Svuota il carrello
+        request.session.pop('carrello', None)
 
-        # Opzionale: cancella il carrello dalla sessione
-        if 'carrello' in request.session:
-            del request.session['carrello']
-
-        return redirect('conferma_ordine')  # pagina di conferma
+        return redirect('conferma_ordine')
 
     return render(request, 'pagamento.html')
 
@@ -277,6 +260,94 @@ def conferma_ordine(request):
 
     return render(request, 'conferma_ordine.html')
 
+from django.shortcuts import render, redirect
+from .models import Cliente, Prodotto, Evento, Recensione
+
+from django.shortcuts import render, redirect
+from .models import Cliente, Prodotto, Evento, Recensione
+
+def ins_recensione(request):
+    email = request.session.get('email')
+    cliente = Cliente.objects.filter(email=email).first()
+
+    if not cliente:
+        return redirect('personale')
+
+    scelta = request.POST.get('tipo', '')  # 'prodotto' o 'evento'
+    elementi = []
+
+    if request.method == 'POST':
+        valutazione_str = request.POST.get('valutazione')
+        testo = request.POST.get('testo')
+        elemento_id = request.POST.get('elemento_id')
+        tipo = request.POST.get('tipo')
+
+        if valutazione_str and testo and elemento_id and tipo:
+            try:
+                valutazione = int(valutazione_str)
+            except ValueError:
+                valutazione = None
+
+            if valutazione is None or not (1 <= valutazione <= 5):
+                # Valutazione non valida
+                pass
+            else:
+                if tipo == 'prodotto':
+                    prodotto = Prodotto.objects.filter(
+                        id=elemento_id,
+                        dettaglio_ordine__ordine__esecuzione__cliente=cliente
+                    ).first()
+                    if prodotto:
+                        Recensione.objects.create(
+                            testo=testo,
+                            valutazione=valutazione,
+                            cliente=cliente,
+                            prodotto=prodotto,
+                            evento=None
+                        )
+                        return redirect('conferma_recensione')
+
+                elif tipo == 'evento':
+                    evento = Evento.objects.filter(
+                        id=elemento_id,
+                        partecipazione_evento__cliente=cliente
+                    ).first()
+                    if evento:
+                        Recensione.objects.create(
+                            testo=testo,
+                            valutazione=valutazione,
+                            cliente=cliente,
+                            evento=evento,
+                            prodotto=None
+                        )
+                        return redirect('conferma_recensione')
+
+        # In caso di cambio tipo (GET di tipo da form)
+        if 'tipo' in request.POST:
+            if scelta == 'prodotto':
+                elementi = Prodotto.objects.filter(
+                    dettaglio_ordine__ordine__esecuzione__cliente=cliente
+                ).distinct()
+            elif scelta == 'evento':
+                elementi = Evento.objects.filter(
+                    partecipazione_evento__cliente=cliente
+                ).distinct()
+
+    return render(request, 'ins_recensione.html', {
+        'scelta': scelta,
+        'elementi': elementi,
+    })
+
+
+def conferma_recensione(request):
+    # recupero il cliente loggato tramite email
+    email = request.session.get('email')
+    cliente = Cliente.objects.filter(email=email).first()
+
+    if not cliente:
+        return redirect('personale')  # Oppure mostra errore
+
+    return render(request, 'conferma_recensione.html')
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
 
@@ -296,30 +367,49 @@ def login_responsabile(request):
     else:
         return render(request, 'amministrazione.html', {'error_message': "Metodo non valido"})
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Prefetch
+from .models import Ordine, Responsabile, Centro_Distributivo, Gestione, Dettaglio_ordine, Esecuzione
+
+from django.db.models import Prefetch
+
+from django.db.models import Prefetch
+
 def menu_amministrazione(request):
     admin_email = request.session.get('admin_email')
     responsabile = Responsabile.objects.filter(email=admin_email).first()
+
     if not responsabile:
         return redirect('amministrazione')
 
     centro = Centro_Distributivo.objects.filter(responsabile=responsabile).first()
+
     if not centro:
         return render(request, 'menu_amministrazione.html', {
             'ordini': [],
             'scelte_stato': Ordine.Stato.choices
         })
 
+    # Gestione cambio stato ordine
     if request.method == "POST":
         ordine_id = request.POST.get('ordine_id')
         nuovo_stato = request.POST.get('stato')
-        ordine = get_object_or_404(Ordine, id=ordine_id, centro_distributivo=centro)
-        ordine.stato = nuovo_stato
-        ordine.save()
+
+        ordine = Ordine.objects.filter(
+            id=ordine_id,
+            gestione__centro_distributivo=centro
+        ).first()
+
+        if ordine:
+            ordine.stato = nuovo_stato
+            ordine.save()
         return redirect('menu_amministrazione')
 
-    # Carica ordini con cliente e dettagli ordine con prodotto
-    ordini = Ordine.objects.filter(centro_distributivo=centro).select_related('cliente').prefetch_related(
-            Prefetch('dettaglio_ordine_set', queryset=Dettaglio_ordine.objects.select_related('prodotto'))
+    ordini = Ordine.objects.filter(
+        gestione__centro_distributivo=centro
+    ).prefetch_related(
+        Prefetch('dettaglio_ordine_set', queryset=Dettaglio_ordine.objects.select_related('prodotto')),
+        Prefetch('esecuzione_set', queryset=Esecuzione.objects.select_related('cliente'))
     ).order_by('-data_ordine')
 
     return render(request, 'menu_amministrazione.html', {
@@ -327,6 +417,19 @@ def menu_amministrazione(request):
         'scelte_stato': Ordine.Stato.choices
     })
 
+
+
 def logout_admin(request):
     request.session.flush()  # Rimuove tutta la sessione (oppure: del request.session['admin_email'])
     return redirect('amministrazione')
+
+def recensioni(request):
+    recensioni_eventi = Recensione.objects.filter(evento__isnull=False, prodotto__isnull=True)
+    recensioni_prodotti = Recensione.objects.filter(prodotto__isnull=False, evento__isnull=True)
+
+    context = {
+        'recensioni_eventi': recensioni_eventi,
+        'recensioni_prodotti': recensioni_prodotti,
+    }
+
+    return render(request, 'recensioni.html', context)

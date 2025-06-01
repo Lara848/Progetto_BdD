@@ -409,3 +409,39 @@ h2, h3 {
     font-weight: 500;
     margin-top: auto; /* Spinge il footer in fondo */
 }
+.recensioni-container {
+  display: flex;
+  gap: 40px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.colonna-eventi,
+.colonna-prodotti {
+  flex: 1 1 45%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.scheda-recensione {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 4px solid #a3b18a;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .recensioni-container {
+    flex-direction: column;
+  }
+
+  .colonna-eventi,
+  .colonna-prodotti {
+    flex: 1 1 100%;
+  }
+}

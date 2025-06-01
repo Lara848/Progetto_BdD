@@ -21,7 +21,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from Tenuta.views import index, personale, amministrazione, login, registration, registration_page, menu_personale, \
-    login_responsabile, menu_amministrazione, ordina_multipli, ordine, pagamento, conferma_ordine, logout_admin
+    login_responsabile, menu_amministrazione, ordina_multipli, ordine, pagamento, conferma_ordine, logout_admin, \
+    ins_recensione, conferma_recensione, recensioni
 
 urlpatterns = [
     #    path('admin/', admin.site.urls),
@@ -44,12 +45,18 @@ urlpatterns = [
 
     path('conferma_ordine', conferma_ordine, name="conferma_ordine"),
 
+    path('ins_recensione', ins_recensione, name="ins_recensione"),
+
+    path('conferma_recensione', conferma_recensione, name="conferma_recensione"),
+
     path('amministrazione', amministrazione, name="amministrazione"),
 
     path('login_admin', login_responsabile, name="login_admin"),
     path('menu_amministrazione', menu_amministrazione, name="menu_amministrazione"),
 
-    path('logout_admin', logout_admin, name="logout_admin")
+    path('logout_admin', logout_admin, name="logout_admin"),
+
+    path('recensioni', recensioni, name="recensioni")
 
 ]
 if settings.DEBUG:
