@@ -64,9 +64,15 @@ class Ordine(models.Model):
         STANDART = 'Standard'
         ESPRESSO = 'Espresso'
 
+    class Metodo_Pagamento(models.TextChoices):
+        CARTA_CREDITO = 'Carta di credito'
+        PAYPAL = 'PayPal'
+        BONIFICO = 'Bonifico'
+
     tipo_consegna = EnumField(choices=Tipo_consegna, default=Tipo_consegna.STANDART)
     data_ordine = models.DateField()
-    metodo_pagamento = models.CharField(max_length=50)
+    metodo_pagamento = EnumField(choices=Metodo_Pagamento, default=Metodo_Pagamento.CARTA_CREDITO)
+    regione_spedizione = models.CharField(max_length=50)
     indirizzo_spedizione = models.CharField(max_length=255)
     totale = models.DecimalField(max_digits=10, decimal_places=2)
     richiesta_fattura = models.BooleanField(default=False)
