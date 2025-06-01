@@ -4,6 +4,29 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #f9f9f9;
 }
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html, body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
 
 /* Form preventivo */
 form {
@@ -282,8 +305,10 @@ h2, h3 {
 
 .container {
     display: flex;
-    height: 100vh;
     font-family: sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
   }
 
   .left-col {
@@ -382,5 +407,5 @@ h2, h3 {
     padding: 15px 20px;
     font-size: 14px;
     font-weight: 500;
+    margin-top: auto; /* Spinge il footer in fondo */
 }
-

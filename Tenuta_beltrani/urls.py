@@ -14,11 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 # from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from Tenuta.views import index, personale, amministrazione, login, registration, registration_page, menu_personale, \
-    login_responsabile, menu_amministrazione, ordine, ordina_multipli
+    login_responsabile, menu_amministrazione, ordina_multipli, ordine
 
 urlpatterns = [
     #    path('admin/', admin.site.urls),
@@ -42,3 +45,5 @@ urlpatterns = [
     path('menu_amministrazione', menu_amministrazione, name="menu_amministrazione"),
     path('login_admin', login_responsabile, name="login_admin"),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,66 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Tenuta Beltrani{% endblock %}</title>
     <link rel="stylesheet" href="/static/css/style_index.css">
-    <!-- Nel <head> di base.html -->
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
 </head>
 <body>
+    <div class="page-wrapper">
 
-    <!-- Prima Navbar -->
-    <div class="navbar">
-        <div class="social-icons">
-            <a href="https://www.facebook.com/az.agr.tenutabeltrani/">
-                <img src="{% static 'img/face.png' %}" alt="Facebook" width="10" height="20">
-            </a>
-            <a href="https://www.instagram.com/tenuta_beltrani/?hl=it">
-                <img src="{% static 'img/insta.png' %}" alt="Instagram" width="20" height="20">
-            </a>
+        <!-- Prima Navbar -->
+        <div class="navbar">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/az.agr.tenutabeltrani/">
+                    <img src="{% static 'img/face.png' %}" alt="Facebook" width="10" height="20">
+                </a>
+                <a href="https://www.instagram.com/tenuta_beltrani/?hl=it">
+                    <img src="{% static 'img/insta.png' %}" alt="Instagram" width="20" height="20">
+                </a>
+            </div>
+            <div class="language">
+                <select id="language-select">
+                    <option value="it"> Italiano</option>
+                    <option value="en"> English</option>
+                    <option value="de"> Deutsch</option>
+                    <option value="fr"> Français</option>
+                </select>
+            </div>
         </div>
-        <div class="language">
-            <select id="language-select">
-                <option value="it"> Italiano</option>
-                <option value="en"> English</option>
-                <option value="de"> Deutsch</option>
-                <option value="fr"> Français</option>
-            </select>
+
+        <!-- Seconda Navbar -->
+        <div class="second-navbar">
+            <div class="left-column">
+                <a href="{% url 'amministrazione' %}">Area Amministrativa</a>
+            </div>
+            <div class="center-column">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="250" height="100">
+            </div>
+            <div class="right-column">
+                <a href="{% url 'personale' %}">Area Personale</a>
+            </div>
         </div>
+
+        <!-- Terza barra -->
+        <div class="third-bar">
+            <nav class="menu">
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'index' %}">PRODOTTI</a></li>
+                    <li><a href="{% url 'index' %}">EVENTI</a></li>
+                    <li><a href="{% url 'index' %}">RECENSIONI</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Contenuto dinamico -->
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer-bar">
+            <br>Realizzato da Lara Maggiulli - Progetto Universitario - Università degli Studi di Napoli Parthenope © 2025<br><br>
+        </footer>
     </div>
-
-    <!-- Seconda Navbar -->
-    <div class="second-navbar">
-        <div class="left-column">
-            <a href="{% url 'amministrazione' %}">Area Amministrativa</a>
-        </div>
-        <div class="center-column">
-            <img src="{% static 'img/logo.png' %}" alt="Logo" width="250" height="100">
-        </div>
-        <div class="right-column">
-            <a href="{% url 'personale' %}">Area Personale</a>
-        </div>
-    </div>
-
-    <!-- Terza barra -->
-    <div class="third-bar">
-        <nav class="menu">
-            <ul>
-                <li><a href="{% url 'index' %}">HOME</a></li>
-                <li><a href="{% url 'index' %}">PRODOTTI</a></li>
-                <li><a href="{% url 'index' %}">EVENTI</a></li>
-                <li><a href="{% url 'index' %}">RECENSIONI</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <!-- Contenuto dinamico -->
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer-bar">
-        <br>Realizzato da Lara Maggiulli - Progetto Universitario - Università degli Studi di Napoli Parthenope © 2025<br><br>
-    </footer>
-
 </body>
 </html>

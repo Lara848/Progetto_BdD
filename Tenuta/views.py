@@ -130,29 +130,30 @@ def registration_page(request):
     return render(request, 'registrazione.html', {})
 
 def ordine(request):
-    return render(request, 'ordine.html', {})
+    prodotti = Prodotto.objects.all()
+    return render(request, 'ordine.html', {
+        'prodotti': prodotti,
+        'range_10': range(1, 11)
+    })
 
 
 def ordina_multipli(request):
-    prodotti = Prodotto.objects.all()
+    if request.method == 'POST':
+        carrello = {}    #dizionario vuoto per il carrello, che mi contiene tutti i prodotti che voglio comprare
+        for prodotto in Prodotto.objects.all():
+            key = f"quantita_{prodotto.id}"  #prende id e lo mette nella chiave quantita_id
+            quantita = request.POST.get(key) #qui prende la quantità
+            if quantita and quantita.isdigit() and int(quantita) > 0:
+                carrello[prodotto.id] = int(quantita)
+                #verifica che la quantità ** sia presente ** - sia un numero   - sia ** maggiore di zero **
 
-    # Creiamo un nuovo ordine
-    ordine = Ordine.objects.create()
+        if carrello:
+            request.session['carrello'] = carrello
+            return redirect('completa_ordine')  # o una pagina di conferma
+        else:
+            return redirect('ordina_multipli')
 
-    # Aggiungiamo i prodotti ordinati
-    for prodotto in prodotti:
-        key = f"quantita_{prodotto.id}"
-        quantita = request.POST.get(key)
-        if quantita and quantita.isdigit() and int(quantita) > 0:
-            Dettaglio_ordine.objects.create(
-                ordine=ordine,
-                prodotto=prodotto,
-                quantita=int(quantita)
-            )
-
-    # Reindirizziamo a una pagina dove l’utente completa i dati
-    # Passiamo l'id ordine nella query string o url
-    return redirect(reverse('completa_ordine', kwargs={'ordine_id': ordine.id}))
+    return redirect('ordina_multipli')
 
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
