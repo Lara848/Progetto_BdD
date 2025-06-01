@@ -17,40 +17,47 @@
   </div>
 
   <div class="right-col">
-    <h2 align="center">Scegli i prodotti</h2>
+    <h2 align="center">Dati spedizione e pagamento</h2>
 
-    <form method="post" action="{% url 'ordina_multipli' %}">
+    <form method="post" action="{% url 'pagamento' %}">
         {% csrf_token %}
-            <div class="row">
-                {% for prodotto in prodotti %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="{{ prodotto.immagine.url }}" class="card-img-top" alt="{{ prodotto.nome }}" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ prodotto.nome }}</h5>
-                            <p class="card-text"><strong>Prezzo:</strong> €{{ prodotto.prezzo }}</p>
-                            <p class="card-text"><strong>Formato:</strong> {{ prodotto.formato }}</p>
+        <div class="mb-3">
+          <label for="indirizzo_spedizione" class="form-label">Indirizzo di spedizione</label>
+          <input type="text" class="form-control" id="indirizzo_spedizione" name="indirizzo_spedizione" required>
+        </div>
 
-                            <label for="quantita_{{ prodotto.id }}">Quantità:</label>
-                            <select class="form-select" name="quantita_{{ prodotto.id }}" id="quantita_{{ prodotto.id }}">
-                                <option value="" selected>Nessuna</option>
-                                {% for i in range_10 %}
-                                <option value="{{ i }}">{{ i }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+        <div class="mb-3">
+          <label for="regione_spedizione" class="form-label">Regione di spedizione</label>
+          <input type="text" class="form-control" id="regione_spedizione" name="regione_spedizione" required>
+        </div>
 
-            <!-- Pulsante unico alla fine -->
-            <div class="text-center mt-4">
-                <form method="post" action="{% url 'menu_personale' %}">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-success btn-lg">Procedi con il pagamento</button>
-                </form>
-            </div>
+        <div class="mb-3">
+          <label for="tipo_consegna" class="form-label">Tipo di consegna</label>
+          <select class="form-select" id="tipo_consegna" name="tipo_consegna" required>
+            <option value="Standard">Standard</option>
+            <option value="Espresso">Espresso</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="metodo_pagamento" class="form-label">Metodo di pagamento</label>
+          <select class="form-select" id="metodo_pagamento" name="metodo_pagamento" required>
+            <option value="Carta di credito">Carta di credito</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Bonifico">Bonifico</option>
+          </select>
+        </div>
+
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="richiesta_fattura" name="richiesta_fattura">
+          <label class="form-check-label" for="richiesta_fattura">
+            Desidero ricevere la fattura
+          </label>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-lg">Conferma Ordine</button>
+        </div>
     </form>
 
   </div>

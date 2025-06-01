@@ -46,7 +46,7 @@
 
             <!-- Pulsante unico alla fine -->
             <div class="text-center mt-4">
-                <form method="post" action="{% url 'menu_personale' %}">
+                <form method="post" action="{% url 'pagamento' %}">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-success btn-lg">Procedi con il pagamento</button>
                 </form>
