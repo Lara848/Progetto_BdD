@@ -4,77 +4,82 @@
 {% block title %}Area Amministrativa - Tenuta Beltrani{% endblock %}
 
 {% block content %}
-<h1 align="center">Benvenuto {{ responsabile.nome }} {{ responsabile.cognome }}</h1>
+    <h1 align="center">Benvenuto {{ responsabile.nome }} {{ responsabile.cognome }}</h1>
 
-<div class="container">
-  <div class="left-col">
-    <h2>MENU</h2>
-    <!--<a href="% url 'amministrazione' %}" class="menu-link">Gestisci ordini</a>
-    <a href="% url 'menu_amministrazione' %}" class="menu-link">Storico degli ordini</a>-->
+    <div class="container">
+        <div class="left-col">
+            <h2>MENU</h2>
 
-    <form method="post" action="{% url 'logout_admin' %}">
-        {% csrf_token %}
-        <button type="submit" class="menu-link logout-link">Logout</button>
-    </form>
-  </div>
+            <form method="post" action="{% url 'logout_admin' %}">
+                {% csrf_token %}
+                <button type="submit" class="menu-link logout-link">Logout</button>
+            </form>
+        </div>
 
-  <div class="right-col">
-    <h2>Gestione Ordini</h2>
+        <div class="right-col">
+            <h2>Gestione Ordini</h2>
 
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Email Cliente</th>
-                <th>Data Ordine</th>
-                <th>Dettagli</th>
-                <th>Stato</th>
-                <th>Aggiorna Stato</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ordine in ordini %}
-            <tr>
-                <td>
-                  {% for esecuzione in ordine.esecuzione_set.all %}
-                    {{ esecuzione.cliente.email }}<br>
-                  {% empty %}
-                    Nessun cliente associato
-                  {% endfor %}
-                </td>
-                <td>{{ ordine.data_ordine }}</td>
-                <td>
-                    <strong>Totale:</strong> {{ ordine.totale }} €
-                    <br>
-                    <strong>Indirizzo:</strong> {{ ordine.indirizzo_spedizione }}
-                    <br>
-                    <strong>Prodotti:</strong>
-                    <ul>
-                        {% for dettaglio in ordine.dettaglio_ordine_set.all %}
-                            <li>{{ dettaglio.prodotto.nome }} - Quantità: {{ dettaglio.quantita }}</li>
-                        {% empty %}
-                            <li>Nessun prodotto</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-                <td>{{ ordine.stato }}</td>
-                <td>
-                    <form method="post" action="{% url 'menu_amministrazione' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="ordine_id" value="{{ ordine.id }}">
-                        <select name="stato">
-                            {% for codice, nome in scelte_stato %}
-                                <option value="{{ codice }}" {% if ordine.stato == codice %}selected{% endif %}>{{ nome }}</option>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>Email Cliente</th>
+                    <th>Data Ordine</th>
+                    <th>Dettagli</th>
+                    <th>Fattura</th>
+                    <th>Stato</th>
+                    <th>Aggiorna Stato</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ordine in ordini %}
+                    <tr>
+                        <td>
+                            {% for esecuzione in ordine.esecuzione_set.all %}
+                                {{ esecuzione.cliente.email }}<br>
+                            {% empty %}
+                                Nessun cliente associato
                             {% endfor %}
-                        </select>
-                        <button type="submit">Aggiorna</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                        </td>
+                        <td>{{ ordine.data_ordine }}</td>
+                        <td>
+                            <strong>Totale:</strong> {{ ordine.totale }} €
+                            <br>
+                            <strong>Indirizzo:</strong> {{ ordine.indirizzo_spedizione }}
+                            <br>
+                            <strong>Prodotti:</strong>
+                            <ul>
+                                {% for dettaglio in ordine.dettaglio_ordine_set.all %}
+                                    <li>{{ dettaglio.prodotto.nome }} - Quantità: {{ dettaglio.quantita }}</li>
+                                {% empty %}
+                                    <li>Nessun prodotto</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            {% if ordine.richiesta_fattura %}
+                                Si, da inviare
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+                        <td>{{ ordine.stato }}</td>
+                        <td>
+                            <form method="post" action="{% url 'menu_amministrazione' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="ordine_id" value="{{ ordine.id }}">
+                                <select name="stato">
+                                    {% for codice, nome in scelte_stato %}
+                                        <option value="{{ codice }}" {% if ordine.stato == codice %}selected{% endif %}>{{ nome }}</option>
+                                    {% endfor %}
+                                </select>
+                                <br><button type="submit">Aggiorna</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-
-  </div>
-</div>
+        </div>
+    </div>
 {% endblock %}
