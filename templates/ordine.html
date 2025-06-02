@@ -7,13 +7,14 @@
 <div class="container">
   <div class="left-col">
     <h2>MENU</h2>
+      <a href="/menu_personale" class="menu-link">Home</a>
       <a href="/ordine" class="menu-link">Esegui ordini</a>
       <a href="/storico" class="menu-link">Storico degli ordini</a>
       <a href="/ins_recensione" class="menu-link">Inserisci recensioni</a>
 
-    <form method="post" action="{% url 'personale' %}">
-      {% csrf_token %}
-      <button type="submit" class="menu-link logout-link">Logout</button>
+    <form method="post" action="{% url 'logout_cliente' %}">
+        {% csrf_token %}
+        <button type="submit" class="menu-link logout-link">Logout</button>
     </form>
   </div>
 

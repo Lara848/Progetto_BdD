@@ -4,13 +4,13 @@
 {% block title %}Area Amministrativa - Tenuta Beltrani{% endblock %}
 
 {% block content %}
-<h1 align="center">Benvenuto nell'Area Amministrativa</h1>
+<h1 align="center">Benvenuto {{ responsabile.nome }} {{ responsabile.cognome }}</h1>
 
 <div class="container">
   <div class="left-col">
     <h2>MENU</h2>
-    <a href="{% url 'amministrazione' %}" class="menu-link">Gestisci ordini</a>
-    <a href="{% url 'menu_amministrazione' %}" class="menu-link">Storico degli ordini</a>
+    <!--<a href="% url 'amministrazione' %}" class="menu-link">Gestisci ordini</a>
+    <a href="% url 'menu_amministrazione' %}" class="menu-link">Storico degli ordini</a>-->
 
     <form method="post" action="{% url 'logout_admin' %}">
         {% csrf_token %}

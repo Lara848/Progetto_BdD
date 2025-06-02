@@ -1,17 +1,14 @@
 import hashlib
 from audioop import reverse
-
-from django.contrib.auth.decorators import login_required
-from django.db.models import Prefetch
-from django.shortcuts import render, get_object_or_404
-
-from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Gestione, \
-    Esecuzione, Recensione, Evento
 from decimal import Decimal
 from django.utils.timezone import now
+from django.db.models import Prefetch
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Gestione, \
+    Esecuzione, Recensione, Evento
 
 # Create your views here.
-
 def index(request):
     return render(request, 'index.html', {})
 
@@ -20,8 +17,6 @@ def authenticated(email, password):
 
 def authenticated_responsabile(email, password):
     return Responsabile.objects.filter(email=email, password=password).exists()
-
-from Tenuta.models import Cliente
 
 def login(request):
     if request.method == "POST":
@@ -42,10 +37,6 @@ def login(request):
             return render(request, 'personale.html', {'error_message': "Credenziali non valide, riprova"})
     else:
         return render(request, 'personale.html', {'error_message': "Metodo non valido"})
-
-import hashlib
-from django.shortcuts import render, redirect
-from .models import Cliente
 
 def registration(request):
     if request.method == "POST":
@@ -121,7 +112,7 @@ def registration_page(request):
 
 def personale(request):
     return render(request, 'personale.html', {})
-@login_required
+
 def menu_personale(request):
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
@@ -145,7 +136,6 @@ def ordine(request):
         'prodotti': prodotti,
         'range_10': range(1, 11)
     })
-
 
 def ordina_multipli(request):
     email = request.session.get('email')
@@ -260,12 +250,6 @@ def conferma_ordine(request):
 
     return render(request, 'conferma_ordine.html')
 
-from django.shortcuts import render, redirect
-from .models import Cliente, Prodotto, Evento, Recensione
-
-from django.shortcuts import render, redirect
-from .models import Cliente, Prodotto, Evento, Recensione
-
 def ins_recensione(request):
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
@@ -365,6 +349,13 @@ def storico(request):
     return render(request, 'storico.html', {
         'ordini': ordini
     })
+
+def logout_cliente(request):
+    if request.method == 'POST':
+        request.session.flush()  # Cancella tutta la sessione
+
+    return redirect('personale')  # Accesso diretto con GET non è valid
+
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
 
@@ -384,13 +375,7 @@ def login_responsabile(request):
     else:
         return render(request, 'amministrazione.html', {'error_message': "Metodo non valido"})
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Prefetch
-from .models import Ordine, Responsabile, Centro_Distributivo, Gestione, Dettaglio_ordine, Esecuzione
 
-from django.db.models import Prefetch
-
-from django.db.models import Prefetch
 
 def menu_amministrazione(request):
     admin_email = request.session.get('admin_email')
@@ -431,10 +416,9 @@ def menu_amministrazione(request):
 
     return render(request, 'menu_amministrazione.html', {
         'ordini': ordini,
-        'scelte_stato': Ordine.Stato.choices
+        'scelte_stato': Ordine.Stato.choices,
+        'responsabile': responsabile,
     })
-
-
 
 def logout_admin(request):
     request.session.flush()  # Rimuove tutta la sessione (oppure: del request.session['admin_email'])

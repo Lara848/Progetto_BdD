@@ -4,49 +4,54 @@
 {% block title %}Area Personale - Tenuta Beltrani{% endblock %}
 
 {% block content %}
-<h1 align="center">Benvenuto nell'Area Personale</h1>
-
-<div class="container">
-  <div class="left-col">
-    <h2>MENU</h2>
-      <a href="/ordine" class="menu-link">Esegui ordini</a>
-      <a href="/storico" class="menu-link">Storico degli ordini</a>
-      <a href="/ins_recensione" class="menu-link">Inserisci recensioni</a>
-
-    <form method="post" action="{% url 'personale' %}">
-      {% csrf_token %}
-      <button type="submit" class="menu-link logout-link">Logout</button>
-    </form>
-  </div>
-
-  <div class="right-col">
-    <h3>Dati anagrafici</h3>
-
     {% if cliente.ruolo == "Commerciale" %}
-      <div class="mb-3">
-        <label>Ragione Sociale</label>
-        <p>{{ cliente.ragione_sociale }}</p>
-      </div>
-      <div class="mb-3">
-        <label>Partita IVA</label>
-        <p>{{ cliente.partita_iva }}</p>
-      </div>
+        <h1 align="center">Benvenuto {{ cliente.ragione_sociale }}</h1>
     {% elif cliente.ruolo == "Privato" %}
-      <div class="mb-3">
-        <label>Nome</label>
-        <p>{{ cliente.nome }}</p>
-      </div>
-      <div class="mb-3">
-        <label>Cognome</label>
-        <p>{{ cliente.cognome }}</p>
-      </div>
+        <h1 align="center">Benvenuto {{ cliente.nome }} {{ cliente.cognome }}</h1>
     {% endif %}
 
-    <div class="mb-3">
-      <label>Email</label>
-      <p>{{ cliente.email }}</p>
+    <div class="container">
+        <div class="left-col">
+            <h2>MENU</h2>
+            <a href="/menu_personale" class="menu-link">Home</a>
+            <a href="/ordine" class="menu-link">Esegui ordini</a>
+            <a href="/storico" class="menu-link">Storico degli ordini</a>
+            <a href="/ins_recensione" class="menu-link">Inserisci recensioni</a>
+
+            <form method="post" action="{% url 'logout_cliente' %}">
+                {% csrf_token %}
+                <button type="submit" class="menu-link logout-link">Logout</button>
+            </form>
+        </div>
+
+        <div class="right-col">
+            <h3>Dati anagrafici</h3>
+
+            {% if cliente.ruolo == "Commerciale" %}
+                <div class="mb-3">
+                    <label>Ragione Sociale</label>
+                    <p>{{ cliente.ragione_sociale }}</p>
+                </div>
+                <div class="mb-3">
+                    <label>Partita IVA</label>
+                    <p>{{ cliente.partita_iva }}</p>
+                </div>
+            {% elif cliente.ruolo == "Privato" %}
+                <div class="mb-3">
+                    <label>Nome</label>
+                    <p>{{ cliente.nome }}</p>
+                </div>
+                <div class="mb-3">
+                    <label>Cognome</label>
+                    <p>{{ cliente.cognome }}</p>
+                </div>
+            {% endif %}
+
+            <div class="mb-3">
+                <label>Email</label>
+                <p>{{ cliente.email }}</p>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 {% endblock %}

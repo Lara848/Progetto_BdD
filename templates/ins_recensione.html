@@ -7,13 +7,14 @@
 <div class="container">
   <div class="left-col">
     <h2>MENU</h2>
-    <a href="/ordine" class="menu-link">Esegui ordini</a>
-    <a href="/storico" class="menu-link">Storico degli ordini</a>
-    <a href="/ins_recensioni" class="menu-link">Inserisci recensioni</a>
+      <a href="/menu_personale" class="menu-link">Home</a>
+      <a href="/ordine" class="menu-link">Esegui ordini</a>
+      <a href="/storico" class="menu-link">Storico degli ordini</a>
+      <a href="/ins_recensioni" class="menu-link">Inserisci recensioni</a>
 
-    <form method="post" action="{% url 'personale' %}">
-      {% csrf_token %}
-      <button type="submit" class="menu-link logout-link">Logout</button>
+    <form method="post" action="{% url 'logout_cliente' %}">
+        {% csrf_token %}
+        <button type="submit" class="menu-link logout-link">Logout</button>
     </form>
   </div>
 
@@ -21,38 +22,38 @@
       <h2>Inserisci Recensione</h2>
       <!-- Form per scegliere se recensire prodotto o evento -->
       <form method="post">
-      {% csrf_token %}
+          {% csrf_token %}
 
-      <label>Valutazione (1-5):</label><br>
-      <input type="number" name="valutazione" min="1" max="5" required
-        value="{{ request.POST.valutazione|default_if_none:'' }}"><br><br>
+          <label>Valutazione (1-5):</label><br>
+          <input type="number" name="valutazione" min="1" max="5" required
+                 value="{{ request.POST.valutazione|default_if_none:'' }}"><br><br>
 
-      <label>Testo:</label><br>
-      <textarea name="testo" rows="4" required>{{ request.POST.testo|default_if_none:'' }}</textarea><br><br>
+          <label>Testo:</label><br>
+          <textarea name="testo" rows="4" required>{{ request.POST.testo|default_if_none:'' }}</textarea><br><br>
 
-      <label>Tipo di recensione:</label><br>
-      <select name="tipo" onchange="this.form.submit()">
-        <option value="">-- Seleziona --</option>
-        <option value="prodotto" {% if scelta == 'prodotto' %}selected{% endif %}>Prodotto</option>
-        <option value="evento" {% if scelta == 'evento' %}selected{% endif %}>Evento</option>
-      </select><br><br>
+          <label>Tipo di recensione:</label><br>
+          <select name="tipo" onchange="this.form.submit()">
+              <option value="">-- Seleziona --</option>
+              <option value="prodotto" {% if scelta == 'prodotto' %}selected{% endif %}>Prodotto</option>
+              <option value="evento" {% if scelta == 'evento' %}selected{% endif %}>Evento</option>
+          </select><br><br>
 
-      {% if scelta %}
-        <label>Scegli {{ scelta }}:</label><br>
-        <select name="elemento_id" required>
-          <option value="">-- Seleziona --</option>
-          {% for elemento in elementi %}
-            {% if scelta == 'prodotto' %}
-              <option value="{{ elemento.id }}" {% if elemento.id|stringformat:"s" == request.POST.elemento_id %}selected{% endif %}>{{ elemento.nome }}</option>
-            {% else %}
-              <option value="{{ elemento.id }}" {% if elemento.id|stringformat:"s" == request.POST.elemento_id %}selected{% endif %}>{{ elemento.titolo }}</option>
-            {% endif %}
-          {% endfor %}
-        </select><br><br>
-      {% endif %}
+          {% if scelta %}
+              <label>Scegli {{ scelta }}:</label><br>
+              <select name="elemento_id" required>
+                  <option value="">-- Seleziona --</option>
+                  {% for elemento in elementi %}
+                      {% if scelta == 'prodotto' %}
+                          <option value="{{ elemento.id }}" {% if elemento.id|stringformat:"s" == request.POST.elemento_id %}selected{% endif %}>{{ elemento.nome }}</option>
+                      {% else %}
+                          <option value="{{ elemento.id }}" {% if elemento.id|stringformat:"s" == request.POST.elemento_id %}selected{% endif %}>{{ elemento.titolo }}</option>
+                      {% endif %}
+                  {% endfor %}
+              </select><br><br>
+          {% endif %}
 
-      <button type="submit">Invia Recensione</button>
-    </form>
+          <button type="submit">Invia Recensione</button>
+      </form>
 
   </div>
 </div>
