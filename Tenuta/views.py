@@ -348,6 +348,23 @@ def conferma_recensione(request):
         return redirect('personale')  # Oppure mostra errore
 
     return render(request, 'conferma_recensione.html')
+
+def storico(request):
+    email = request.session.get('email')
+    cliente = Cliente.objects.filter(email=email).first()
+
+    if not cliente:
+        return redirect('personale')  # Oppure mostra errore
+
+    ordini = Ordine.objects.filter(
+        esecuzione__cliente=cliente
+    ).prefetch_related(
+        Prefetch('dettaglio_ordine_set', queryset=Dettaglio_ordine.objects.select_related('prodotto'))
+    ).order_by('-data_ordine')
+
+    return render(request, 'storico.html', {
+        'ordini': ordini
+    })
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
 
