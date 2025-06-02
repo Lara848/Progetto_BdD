@@ -9,6 +9,7 @@
     <div class="container">
         <div class="left-col">
             <h2>MENU</h2>
+            <a href="/menu_amministrazione" class="menu-link">Deposito</a>
 
             <form method="post" action="{% url 'logout_admin' %}">
                 {% csrf_token %}
@@ -34,11 +35,11 @@
                 {% for ordine in ordini %}
                     <tr>
                         <td>
-                            {% for esecuzione in ordine.esecuzione_set.all %}
-                                {{ esecuzione.cliente.email }}<br>
-                            {% empty %}
+                            {% if ordine.cliente %}
+                                {{ ordine.cliente.email }}
+                            {% else %}
                                 Nessun cliente associato
-                            {% endfor %}
+                            {% endif %}
                         </td>
                         <td>{{ ordine.data_ordine }}</td>
                         <td>

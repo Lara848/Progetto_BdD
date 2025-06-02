@@ -45,7 +45,6 @@ class Prodotto(models.Model):
     nome = models.CharField(max_length=100)
     immagine = models.ImageField(upload_to='prodotti/')
     prezzo = models.DecimalField(max_digits=10, decimal_places=2)
-    quantita_disponibile = models.IntegerField()
     formato = models.CharField(max_length=50)
     descrizione = models.TextField()
 
@@ -61,7 +60,7 @@ class Ordine(models.Model):
     stato = EnumField(choices=Stato.choices, default=Stato.ATTESA)
 
     class Tipo_consegna(models.TextChoices):
-        STANDART = 'Standard'
+        STANDARD = 'Standard'
         ESPRESSO = 'Espresso'
 
     class Metodo_Pagamento(models.TextChoices):
@@ -69,36 +68,28 @@ class Ordine(models.Model):
         PAYPAL = 'PayPal'
         BONIFICO = 'Bonifico'
 
-    tipo_consegna = EnumField(choices=Tipo_consegna, default=Tipo_consegna.STANDART)
+    tipo_consegna = EnumField(choices=Tipo_consegna, default=Tipo_consegna.STANDARD)
     data_ordine = models.DateField()
     metodo_pagamento = EnumField(choices=Metodo_Pagamento, default=Metodo_Pagamento.CARTA_CREDITO)
     regione_spedizione = models.CharField(max_length=50)
     indirizzo_spedizione = models.CharField(max_length=255)
     totale = models.DecimalField(max_digits=10, decimal_places=2)
     richiesta_fattura = models.BooleanField(default=False)
+    centro_distributivo = models.ForeignKey(Centro_Distributivo, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
 class Dettaglio_ordine(models.Model):
+    id = models.AutoField(primary_key=True)
     ordine = models.ForeignKey(Ordine, on_delete=models.CASCADE)
     prodotto = models.ForeignKey(Prodotto, on_delete=models.CASCADE)
     quantita = models.PositiveIntegerField()
     prezzo_total = models.DecimalField(max_digits=10, decimal_places=2)
 
-class Gestione(models.Model):
-    ordine = models.ForeignKey(Ordine, on_delete=models.CASCADE)
+class Deposito(models.Model):
+    id = models.AutoField(primary_key=True)
     centro_distributivo = models.ForeignKey(Centro_Distributivo, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = (('ordine', 'centro_distributivo'),)
-    #Questo impone che la coppia (ordine, centro_distributivo) sia univoca, che è l'equivalente pratico di una chiave
-    #primaria composta, anche se Django continuerà a usare il campo id come chiave primaria interna.
-
-class Registrazione(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    centro_distributivo = models.ForeignKey(Centro_Distributivo, on_delete=models.CASCADE)
-
-class Esecuzione(models.Model):
-    ordine = models.ForeignKey(Ordine, on_delete=models.CASCADE)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    prodotto = models.ForeignKey(Prodotto, on_delete=models.CASCADE)
+    quantita = models.PositiveIntegerField()
 
 class Evento(models.Model):
     id = models.AutoField(primary_key=True)
@@ -115,6 +106,7 @@ class Partecipazione_evento(models.Model):
         CONFERMATO = 'confermato'
         ANNULLATO = 'annullato'
         ATTESA = 'attesa'
+    id = models.AutoField(primary_key=True)
     stato = EnumField(choices=Stato.choices, default=Stato.CONFERMATO)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)

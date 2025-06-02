@@ -5,8 +5,9 @@ from django.utils.timezone import now
 from django.db.models import Prefetch
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Gestione, \
-    Esecuzione, Recensione, Evento
+from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Recensione, \
+    Evento, Deposito
+
 
 # Create your views here.
 def index(request):
@@ -210,7 +211,9 @@ def pagamento(request, regione=None):
             metodo_pagamento=metodo_pagamento,
             richiesta_fattura=richiesta_fattura,
             data_ordine=now().date(),
-            totale=totale
+            totale=totale,
+            cliente=cliente,
+            centro_distributivo=centro_distributivo,
         )
 
         # Crea i dettagli dell'ordine
@@ -224,14 +227,12 @@ def pagamento(request, regione=None):
                     quantita=quantita,
                     prezzo_total=prezzo_totale
                 )
-                prodotto.quantita_disponibile -= quantita
-                prodotto.save()
+                deposito = Deposito.objects.filter(prodotto=prodotto, centro_distributivo=centro_distributivo).first()
+                if deposito:
+                    deposito.quantita -= quantita
+                    deposito.save()
             except Prodotto.DoesNotExist:
                 continue
-
-        # Collega l'ordine al cliente (Esecuzione) e al centro distributivo (Gestione)
-        Esecuzione.objects.create(ordine=ordine, cliente=cliente)
-        Gestione.objects.create(ordine=ordine, centro_distributivo=centro_distributivo)
 
         # Svuota il carrello
         request.session.pop('carrello', None)
@@ -279,7 +280,7 @@ def ins_recensione(request):
                 if tipo == 'prodotto':
                     prodotto = Prodotto.objects.filter(
                         id=elemento_id,
-                        dettaglio_ordine__ordine__esecuzione__cliente=cliente
+                        dettaglio_ordine__ordine__cliente=cliente
                     ).first()
                     if prodotto:
                         Recensione.objects.create(
@@ -310,7 +311,7 @@ def ins_recensione(request):
         if 'tipo' in request.POST:
             if scelta == 'prodotto':
                 elementi = Prodotto.objects.filter(
-                    dettaglio_ordine__ordine__esecuzione__cliente=cliente
+                    dettaglio_ordine__ordine__cliente=cliente
                 ).distinct()
             elif scelta == 'evento':
                 elementi = Evento.objects.filter(
@@ -321,7 +322,6 @@ def ins_recensione(request):
         'scelta': scelta,
         'elementi': elementi,
     })
-
 
 def conferma_recensione(request):
     # recupero il cliente loggato tramite email
@@ -340,10 +340,11 @@ def storico(request):
     if not cliente:
         return redirect('personale')  # Oppure mostra errore
 
-    ordini = Ordine.objects.filter(
-        esecuzione__cliente=cliente
-    ).prefetch_related(
-        Prefetch('dettaglio_ordine_set', queryset=Dettaglio_ordine.objects.select_related('prodotto'))
+    ordini = Ordine.objects.filter(cliente=cliente).prefetch_related(
+        Prefetch(
+            'dettaglio_ordine_set',
+            queryset=Dettaglio_ordine.objects.select_related('prodotto')
+        )
     ).order_by('-data_ordine')
 
     return render(request, 'storico.html', {
@@ -399,7 +400,7 @@ def menu_amministrazione(request):
 
         ordine = Ordine.objects.filter(
             id=ordine_id,
-            gestione__centro_distributivo=centro
+            centro_distributivo=centro
         ).first()
 
         if ordine:
@@ -408,10 +409,9 @@ def menu_amministrazione(request):
         return redirect('menu_amministrazione')
 
     ordini = Ordine.objects.filter(
-        gestione__centro_distributivo=centro
-    ).prefetch_related(
-        Prefetch('dettaglio_ordine_set', queryset=Dettaglio_ordine.objects.select_related('prodotto')),
-        Prefetch('esecuzione_set', queryset=Esecuzione.objects.select_related('cliente'))
+        centro_distributivo=centro
+    ).select_related('cliente').prefetch_related(
+        Prefetch('dettaglio_ordine_set', queryset=Dettaglio_ordine.objects.select_related('prodotto'))
     ).order_by('-data_ordine')
 
     return render(request, 'menu_amministrazione.html', {
