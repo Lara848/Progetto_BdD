@@ -5,52 +5,35 @@
 
 {% block content %}
 <!-- Qui va il contenuto specifico dell'area amministrativa -->
-
     <div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h2 class="card-title text-center mb-4">Accedi all'area personale</h2>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Accedi all'area personale</h2>
 
-                <form method="post" action="/login">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    {{ error_message }}
-                    <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-primary">Accedi</button>
-                    </div>
+                    <form method="post" action="/login">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        {{ error_message }}
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary">Accedi</button>
+                        </div>
 
-                    <div class="mb-0" align="center">Non ancora registrato?
-                        <a href="/registration_page" style="text-decoration: none; color: #007bff;">Registrati</a>
-                    </div>
-                </form>
+                        <div class="mb-0" align="center">Non ancora registrato?
+                            <a href="/registration_page" style="text-decoration: none; color: #007bff;">Registrati</a>
+                        </div>
+                    </form>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-    <!---->
-    <!--<form action="/login" method="post">
-        % csrf_token %}
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-
-        <input type="submit" value="Accedi">
-        {{ error_message }}
-
-        <p class="mb-0" align="center">Non ancora registrato?
-            <a href="/registration_page" style="text-decoration: none; color: #007bff;">Registrati</a>
-        </p>
-    </form>-->
 
 {% endblock %}

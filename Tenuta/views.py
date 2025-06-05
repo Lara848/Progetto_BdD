@@ -3,7 +3,6 @@ from audioop import reverse
 from decimal import Decimal
 from django.utils.timezone import now
 from django.db.models import Prefetch
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Recensione, \
     Evento, Deposito
@@ -30,6 +29,7 @@ def login(request):
 
             # Salva email nella sessione (opzionale ma utile per successive richieste)
             request.session['email'] = email
+            request.session['is_authenticated'] = True
 
             return render(request, 'menu_personale.html', {
                 'cliente': cliente
@@ -115,6 +115,9 @@ def personale(request):
     return render(request, 'personale.html', {})
 
 def menu_personale(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -126,6 +129,9 @@ def menu_personale(request):
     })
 
 def ordine(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -139,6 +145,9 @@ def ordine(request):
     })
 
 def ordina_multipli(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -165,6 +174,9 @@ def ordina_multipli(request):
 
 def pagamento(request, regione=None):
     # Recupero il cliente loggato tramite email
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -243,6 +255,9 @@ def pagamento(request, regione=None):
 
 def conferma_ordine(request):
     # recupero il cliente loggato tramite email
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -252,6 +267,9 @@ def conferma_ordine(request):
     return render(request, 'conferma_ordine.html')
 
 def ins_recensione(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -325,6 +343,9 @@ def ins_recensione(request):
 
 def conferma_recensione(request):
     # recupero il cliente loggato tramite email
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -334,6 +355,9 @@ def conferma_recensione(request):
     return render(request, 'conferma_recensione.html')
 
 def storico(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('personale')
+
     email = request.session.get('email')
     cliente = Cliente.objects.filter(email=email).first()
 
@@ -370,6 +394,7 @@ def login_responsabile(request):
         if authenticated_responsabile(email, hashed_password):
             # Salva nella sessione che l'admin è loggato (opzionale)
             request.session['admin_email'] = email
+            request.session['is_admin_authenticated'] = True  # <-- aggiunto qui
             return redirect('menu_amministrazione')  # o 'menu_responsabile.html'
         else:
             return render(request, 'amministrazione.html', {'error_message': "Credenziali non valide, riprova"})
@@ -379,6 +404,9 @@ def login_responsabile(request):
 
 
 def menu_amministrazione(request):
+    if not request.session.get('is_admin_authenticated'):
+        return redirect('amministrazione')  # reindirizza a login admin
+
     admin_email = request.session.get('admin_email')
     responsabile = Responsabile.objects.filter(email=admin_email).first()
 
