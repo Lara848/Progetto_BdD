@@ -3,6 +3,7 @@ from audioop import reverse
 from decimal import Decimal
 from django.utils.timezone import now
 from django.db.models import Prefetch
+from django.db import connection
 from django.shortcuts import render, redirect, get_object_or_404
 from Tenuta.models import Cliente, Responsabile, Prodotto, Ordine, Dettaglio_ordine, Centro_Distributivo, Recensione, \
     Evento, Deposito
@@ -38,6 +39,24 @@ def login(request):
             return render(request, 'personale.html', {'error_message': "Credenziali non valide, riprova"})
     else:
         return render(request, 'personale.html', {'error_message': "Metodo non valido"})
+
+def login_vulnerabile(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        # Query SQL vulnerabile
+        query = f"SELECT * FROM tenuta_cliente WHERE email = '{email}' AND password = '{password}'"
+
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            row = cursor.fetchone()
+        if row:
+            return render(request, "menu_personale.html", {"cliente": row})
+        else:
+            return render(request, "personale.html", {"error_message": "Credenziali non valide"})
+    else:
+        return render(request, "personale.html")
 
 def registration(request):
     if request.method == "POST":

@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 from Tenuta.views import index, personale, amministrazione, login, registration, registration_page, menu_personale, \
     login_responsabile, menu_amministrazione, ordina_multipli, ordine, pagamento, conferma_ordine, logout_admin, \
-    ins_recensione, conferma_recensione, recensioni, storico, logout_cliente
+    ins_recensione, conferma_recensione, recensioni, storico, logout_cliente, login_vulnerabile
 
 urlpatterns = [
     #    path('admin/', admin.site.urls),
@@ -30,6 +30,8 @@ urlpatterns = [
     path('personale', personale, name="personale"),
 
     path('login', login, name="login"),
+
+    #path('personale_vulnerabile', login_vulnerabile, name="personale_vulnerabile"),
 
     path('registration_client', registration, name="registration_client"),
 
