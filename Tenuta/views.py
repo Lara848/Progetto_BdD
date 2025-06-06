@@ -396,9 +396,9 @@ def storico(request):
 
 def logout_cliente(request):
     if request.method == 'POST':
-        request.session.flush()  # Cancella tutta la sessione
+        request.session.pop('email', None) # Rimuove l'email dalla sessione
 
-    return redirect('personale')  # Accesso diretto con GET non è valid
+    return redirect('personale')  # Accesso diretto con GET non è valida
 
 def amministrazione(request):
     return render(request, 'amministrazione.html', {})
@@ -468,7 +468,7 @@ def menu_amministrazione(request):
     })
 
 def logout_admin(request):
-    request.session.flush()  # Rimuove tutta la sessione (oppure: del request.session['admin_email'])
+    request.session.pop('admin_email', None)  # Rimuove tutta la sessione (oppure: del request.session['admin_email'])
     return redirect('amministrazione')
 
 def recensioni(request):
