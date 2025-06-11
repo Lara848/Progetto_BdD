@@ -27,7 +27,7 @@ Il modello Entità-Relazione rappresenta le principali entità del sistema e le 
 
 L’applicazione offre una serie di funzionalità pensate per coprire in modo completo le esigenze dell’Azienda Agricola Tenuta Beltrani, sia dal punto di vista operativo che dell’esperienza utente. Tra le principali:
 
-- **Registrazione e Login**: con autenticazione sicura, distinzione tra clienti privati e attività commerciali, e funzionalità personalizzate per ciascuna categoria.
+- **Registrazione e Login**: con autenticazione sicura, distinzione tra clienti privati e attività commerciali.
 - **Gestione Ordini**: possibilità di creare, inviare e monitorare ordini. Ogni ordine include metodo di pagamento, tipo di consegna, stato (preso in carico, spedito, consegnato) e storico consultabile.
 - **Recensioni e Valutazioni**: gli utenti possono lasciare feedback sui prodotti acquistati.
 - **Eventi Esperienziali**: gestione della pubblicazione, iscrizione e archivio degli eventi organizzati dall’azienda.
