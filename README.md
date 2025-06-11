@@ -1,10 +1,6 @@
 # Sistema di Gestione Ordini – Tenuta Beltrani
 
-Questo progetto nasce con l'obiettivo di digitalizzare la gestione delle vendite dell’Azienda Agricola Tenuta Beltrani, specializzata nella produzione di prodotti tipici italiani.  
-Attraverso un’applicazione web moderna e intuitiva, il sistema sostituisce le attuali procedure manuali, migliorando l’efficienza operativa e l’esperienza dell’utente.  
-Alla base c’è un database relazionale SQL che gestisce in modo strutturato il catalogo prodotti, gli ordini e le informazioni sugli utenti. Il sistema distingue tra clienti privati e attività commerciali, offrendo funzionalità personalizzate in base al profilo.  
-Ogni ordine viene tracciato lungo tutto il suo ciclo di vita, con la possibilità di consultare lo storico, lasciare recensioni e seguire lo stato della spedizione.  
-Inoltre, il sistema consente di gestire eventi organizzati dall’azienda e ottimizza le consegne grazie a una logica che indirizza ogni ordine al centro distributivo più vicino (tra Puglia e Veneto), in base alla regione di destinazione.
+Questo progetto nasce con l'obiettivo di digitalizzare la gestione delle vendite dell’Azienda Agricola Tenuta Beltrani, specializzata nella produzione di prodotti tipici italiani. Attraverso un’applicazione web moderna e intuitiva, il sistema sostituisce le attuali procedure manuali, migliorando l’efficienza operativa e l’esperienza dell’utente. Alla base c’è un database relazionale SQL che gestisce in modo strutturato il catalogo prodotti, gli ordini e le informazioni sugli utenti. Il sistema distingue tra clienti privati e attività commerciali, offrendo funzionalità personalizzate in base al profilo. Ogni ordine viene tracciato lungo tutto il suo ciclo di vita, con la possibilità di consultare lo storico, lasciare recensioni e seguire lo stato della spedizione. Inoltre, il sistema consente di gestire eventi organizzati dall’azienda e ottimizza le consegne grazie a una logica che indirizza ogni ordine al centro distributivo più vicino (tra Puglia e Veneto), in base alla regione di destinazione.
 
 ---
 
@@ -95,9 +91,11 @@ Dopo aver completato l’installazione e la configurazione, l’applicazione è 
 **Web application**
 **Funzionalità utente**:
 - Creare un account utente per registrarsi e autenticarsi.
+
 ![Login](https://github.com/user-attachments/assets/6590a514-61c5-424e-96eb-4bf2335afa93)
 
 - Effettuare ordini con scelta di spedizione, metodo di pagamento e, se previsto, richiesta di fattura.
+  
 ![Menu personale](https://github.com/user-attachments/assets/883724e9-60e9-4a8f-ac59-38129742c7a0)
 
 ![Ordine](https://github.com/user-attachments/assets/704a6307-e27b-4758-8d0f-3dddcf13549a)
@@ -105,14 +103,17 @@ Dopo aver completato l’installazione e la configurazione, l’applicazione è 
 ![Image](https://github.com/user-attachments/assets/25f1f37d-82a0-4673-91b5-780f6b6f98ff)
 
 - Consultare lo storico degli ordini, verificandone lo stato e i dettagli.
+  
 ![Storico ordini](https://github.com/user-attachments/assets/b8d1d846-b2e3-4fb3-82c3-01b2ccc49275)
 
 - Inserire recensioni sui prodotti acquistati.
+  
 ![Inserimento recensione ](https://github.com/user-attachments/assets/e31e4587-653f-4716-9e74-7aa74d7f5f88)
 
 
 **Funzionalità amministrative**
 Gli amministratori accedono a un’area riservata in cui possono gestire esclusivamente gli ordini relativi alla propria area geografica di competenza (Puglia o Veneto). In questa sezione, è possibile visualizzare i dettagli degli ordini e aggiornarne lo stato nel ciclo di gestione (ad esempio da “preso in carico” a “spedito” o “consegnato”), contribuendo all’organizzazione efficiente delle spedizioni.
+
 ![Area amministrativa](https://github.com/user-attachments/assets/745ca683-1e73-40fb-aff8-e45694a829cf)
 
 ---
