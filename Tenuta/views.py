@@ -210,8 +210,8 @@ def pagamento(request, regione=None):
         metodo_pagamento = request.POST.get('metodo_pagamento')
         richiesta_fattura = bool(request.POST.get('richiesta_fattura'))
 
-        if cliente.ruolo == Cliente.Ruolo.PRIVATO:
-            richiesta_fattura = False
+        #if cliente.ruolo == Cliente.Ruolo.PRIVATO:
+        #    richiesta_fattura = False
 
         # Determina il centro distributivo in base alla regione
         regioni_nord = [
@@ -235,7 +235,7 @@ def pagamento(request, regione=None):
             except Prodotto.DoesNotExist:
                 continue
 
-        # Crea l'ordine (senza cliente e centro_distributivo)
+        # Crea l'ordine
         ordine = Ordine.objects.create(
             indirizzo_spedizione=indirizzo_spedizione,
             regione_spedizione=regione_spedizione,
