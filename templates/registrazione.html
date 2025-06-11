@@ -13,7 +13,7 @@
                 <form method="post" action="/registration_client">
                     {% csrf_token %}
 
-                    <!-- Ruolo -->
+                    <!-- Per decisione Ruolo -->
                     <div class="mb-3">
                         <label for="ruolo" class="form-label">Ruolo:</label>
                         <select class="form-select" id="ruolo" name="ruolo" required onchange="this.form.submit()">

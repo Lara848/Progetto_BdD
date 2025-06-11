@@ -20,9 +20,10 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from Tenuta.views import index, personale, amministrazione, login, registration, registration_page, menu_personale, \
+from Tenuta.views import index, personale, amministrazione, registration, registration_page, menu_personale, \
     login_responsabile, menu_amministrazione, ordina_multipli, ordine, pagamento, conferma_ordine, logout_admin, \
-    ins_recensione, conferma_recensione, recensioni, storico, logout_cliente, login_vulnerabile
+    ins_recensione, conferma_recensione, recensioni, storico, logout_cliente, login
+# from Tenuta.views import login_vulnerabile per gestire la vulnerabilità di SQL injection
 
 urlpatterns = [
     #    path('admin/', admin.site.urls),
@@ -31,6 +32,7 @@ urlpatterns = [
 
     path('login', login, name="login"),
 
+    #Per SQL injection
     #path('personale_vulnerabile', login_vulnerabile, name="personale_vulnerabile"),
 
     path('registration_client', registration, name="registration_client"),
