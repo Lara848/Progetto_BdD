@@ -142,7 +142,7 @@ def menu_personale(request):
     cliente = Cliente.objects.filter(email=email).first()
 
     if not cliente:
-        return redirect('personale')  # Oppure mostra errore
+        return redirect('personale')
 
     return render(request, 'menu_personale.html', {
         'cliente': cliente
@@ -156,7 +156,7 @@ def ordine(request):
     cliente = Cliente.objects.filter(email=email).first()
 
     if not cliente:
-        return redirect('personale')  # Oppure mostra errore
+        return redirect('personale')
 
     prodotti = Prodotto.objects.all()
     return render(request, 'ordine.html', {
@@ -185,7 +185,7 @@ def ordina_multipli(request):
 
         if carrello:
             request.session['carrello'] = carrello
-            return redirect('pagamento')  # o una pagina di conferma
+            return redirect('pagamento')
         else:
             return redirect('ordine')
 
@@ -414,8 +414,8 @@ def login_responsabile(request):
         if authenticated_responsabile(email, hashed_password):
             # Salva nella sessione che l'admin è loggato (opzionale)
             request.session['admin_email'] = email
-            request.session['is_admin_authenticated'] = True  # <-- aggiunto qui
-            return redirect('menu_amministrazione')  # o 'menu_responsabile.html'
+            request.session['is_admin_authenticated'] = True
+            return redirect('menu_amministrazione')
         else:
             return render(request, 'amministrazione.html', {'error_message': "Credenziali non valide, riprova"})
     else:
