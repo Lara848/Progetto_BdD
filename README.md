@@ -154,6 +154,8 @@ L'applicazione sarà accessibile all'indirizzo: http://localhost:8000.
 **Funzionalità amministrative**
 Gli amministratori accedono a un’area riservata in cui possono gestire esclusivamente gli ordini relativi alla propria area geografica di competenza (Puglia o Veneto). In questa sezione, è possibile visualizzare i dettagli degli ordini e aggiornarne lo stato nel ciclo di gestione (ad esempio da “preso in carico” a “spedito” o “consegnato”), contribuendo all’organizzazione efficiente delle spedizioni.
 
+![Login_admin](https://github.com/user-attachments/assets/b7015c6b-692b-4f50-867b-dfb20cc3fc4e)
+
 ![Area amministrativa](https://github.com/user-attachments/assets/745ca683-1e73-40fb-aff8-e45694a829cf)
 
 ---
