@@ -132,7 +132,7 @@ L'applicazione sarà accessibile all'indirizzo: http://localhost:8000.
 **Funzionalità utente**:
 - Creare un account utente per registrarsi e autenticarsi.
 
-![Login](https://github.com/user-attachments/assets/6590a514-61c5-424e-96eb-4bf2335afa93)
+![Login](https://github.com/user-attachments/assets/ea3ba196-ff89-4aab-8510-1b2cb999f673)
 
 - Effettuare ordini con scelta di spedizione, metodo di pagamento e, se previsto, richiesta di fattura.
   
