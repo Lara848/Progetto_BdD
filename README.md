@@ -90,13 +90,14 @@ Per eseguire l'applicazione, è necessario:
 ## Configurazione del Database
 
 1. Importare il database da dump SQL
+
    Se disponi di un file `.sql` con il dump del database (ad es. `tenuta_dump.sql`), puoi importarlo nel tuo server MySQL/MariaDB.
    Metodo 1: via phpMyAdmin
    - Accedi a phpMyAdmin
    - Crea un nuovo database (es. tenuta)
    - Clicca su Importa e carica il file tenuta_dump.sql
 
-2. Il file settings.py deve essere modificato per collegare l'applicazione al database MySQL o MariaDB. Nella sezione DATABASES vanno inseriti i dati di connessione, ad esempio:
+3. Il file settings.py deve essere modificato per collegare l'applicazione al database MySQL o MariaDB. Nella sezione DATABASES vanno inseriti i dati di connessione, ad esempio:
 ```
 DATABASES = {
     'default': {
