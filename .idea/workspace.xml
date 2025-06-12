@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2745d6d6-21f9-4fed-bde0-25fbaafbae96" name="Changes" comment="rifiniture">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2745d6d6-21f9-4fed-bde0-25fbaafbae96" name="Changes" comment="rifiniture" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +148,7 @@
       <workItem from="1749544511123" duration="7039000" />
       <workItem from="1749636122243" duration="1630000" />
       <workItem from="1749651061487" duration="5285000" />
-      <workItem from="1749725017062" duration="4145000" />
+      <workItem from="1749725017062" duration="4461000" />
     </task>
     <task id="LOCAL-00001" summary="prima prova">
       <option name="closed" value="true" />
@@ -336,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749664142327</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="rifiniture">
+      <option name="closed" value="true" />
+      <created>1749736747192</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1749736747193</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
