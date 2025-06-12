@@ -58,7 +58,7 @@ Per eseguire l'applicazione, è necessario:
 3. Clonare il progetto:
    ```bash
    git clone https://github.com/Lara848/Progetto_BdD.git
-   cd tenuta
+   cd Progetto_BdD
 4. Creare e attivare un ambiente virtuale:
    ```
    python -m venv venv
