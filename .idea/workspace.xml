@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2745d6d6-21f9-4fed-bde0-25fbaafbae96" name="Changes" comment="rifiniture" />
+    <list default="true" id="2745d6d6-21f9-4fed-bde0-25fbaafbae96" name="Changes" comment="rifiniture">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,6 +57,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
     "django.template.preview.state": "SHOW_EDITOR",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/laram/PycharmProjects/DjangoProject/TravelGame",
     "node.js.detected.package.eslint": "true",
@@ -147,7 +150,7 @@
       <workItem from="1749544511123" duration="7039000" />
       <workItem from="1749636122243" duration="1630000" />
       <workItem from="1749651061487" duration="5285000" />
-      <workItem from="1749725017062" duration="1295000" />
+      <workItem from="1749725017062" duration="4145000" />
     </task>
     <task id="LOCAL-00001" summary="prima prova">
       <option name="closed" value="true" />
