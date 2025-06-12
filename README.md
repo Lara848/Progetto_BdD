@@ -60,16 +60,30 @@ Per eseguire l'applicazione, è necessario:
    git clone https://github.com/Lara848/Progetto_BdD.git
    cd tenuta
 4. Creare e attivare un ambiente virtuale:
-    python -m venv venv
+   ```
+   python -m venv venv
+   ```
     # Linux/macOS
-    source venv/bin/activate  
+   ```
+    source venv/bin/activate
+   ```  
     # Su Windows: 
-   In Powershell: .\.venv\Scripts\Activate.ps1
-   In cmd: .\.venv\Scripts\activate.bat
- 5. Installare le dipendenze
+   In Powershell:
+   ```
+   .\.venv\Scripts\Activate.ps1
+   ```
+   In cmd:
+   ```
+   .\.venv\Scripts\activate.bat
+   ```
+ 6. Installare le dipendenze
+    ```
    pip install -r requirements.txt
+   ```
 Se non si dispone di un file requirements.txt, si puo procedere con la seguente installazione manuale:
+   ```
    pip install django mysqlclient
+   ```
 
 ---
 
