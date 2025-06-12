@@ -120,4 +120,6 @@ Gli amministratori accedono a un’area riservata in cui possono gestire esclusi
 
 ## Licenza
 
-Questo progetto è distribuito per scopi didattici e dimostrativi. L'utilizzo del codice è consentito previa autorizzazione dei titolari del progetto. Tutti i diritti riservati.
+Questo progetto è distribuito con licenza [MIT](LICENSE).  
+Puoi usarlo, modificarlo e distribuirlo liberamente, a patto che venga mantenuta la nota di copyright.
+
