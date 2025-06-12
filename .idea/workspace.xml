@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2745d6d6-21f9-4fed-bde0-25fbaafbae96" name="Changes" comment="rifiniture" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Lara848&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Lara848/Progetto_BdD&quot;,
+    &quot;accountId&quot;: &quot;8e05483e-6767-436a-921e-843a83e391ad&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/.venv/Lib/site-packages/django/db/models/__init__.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2xBCDiweHgn8JHkZoOnWhq9wvUu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.Tenuta.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "django.template.preview.state": "SHOW_EDITOR",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/laram/PycharmProjects/DjangoProject/TravelGame",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\laram\PycharmProjects\DjangoProject\Tenuta\media\prodotti" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\laram\PycharmProjects\DjangoProject\Tenuta\static\img" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Tenuta" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Tenuta" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="Tenuta_beltrani.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
+        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2745d6d6-21f9-4fed-bde0-25fbaafbae96" name="Changes" comment="" />
+      <created>1747401962235</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747401962235</updated>
+      <workItem from="1747401963332" duration="11177000" />
+      <workItem from="1747434156599" duration="854000" />
+      <workItem from="1747733847876" duration="3170000" />
+      <workItem from="1747770566939" duration="2467000" />
+      <workItem from="1748446567547" duration="2673000" />
+      <workItem from="1748537104675" duration="13841000" />
+      <workItem from="1748558358907" duration="1053000" />
+      <workItem from="1748593686269" duration="470000" />
+      <workItem from="1748599752149" duration="792000" />
+      <workItem from="1748600578228" duration="3055000" />
+      <workItem from="1748682403075" duration="10588000" />
+      <workItem from="1748693606447" duration="145000" />
+      <workItem from="1748704949015" duration="1132000" />
+      <workItem from="1748713103414" duration="2867000" />
+      <workItem from="1748770233695" duration="7951000" />
+      <workItem from="1748779536597" duration="31114000" />
+      <workItem from="1748851250574" duration="8519000" />
+      <workItem from="1748862360776" duration="5745000" />
+      <workItem from="1748880509755" duration="663000" />
+      <workItem from="1749052621075" duration="959000" />
+      <workItem from="1749110632358" duration="3229000" />
+      <workItem from="1749129349276" duration="2156000" />
+      <workItem from="1749143238081" duration="2703000" />
+      <workItem from="1749203448289" duration="4632000" />
+      <workItem from="1749209058591" duration="240000" />
+      <workItem from="1749217566937" duration="7563000" />
+      <workItem from="1749479766543" duration="7429000" />
+      <workItem from="1749544511123" duration="7039000" />
+      <workItem from="1749636122243" duration="1630000" />
+      <workItem from="1749651061487" duration="5285000" />
+      <workItem from="1749725017062" duration="1295000" />
+    </task>
+    <task id="LOCAL-00001" summary="prima prova">
+      <option name="closed" value="true" />
+      <created>1748601031578</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748601031578</updated>
+    </task>
+    <task id="LOCAL-00002" summary="prima prova">
+      <option name="closed" value="true" />
+      <created>1748601149153</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748601149153</updated>
+    </task>
+    <task id="LOCAL-00003" summary="prima prova">
+      <option name="closed" value="true" />
+      <created>1748601731149</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748601731149</updated>
+    </task>
+    <task id="LOCAL-00004" summary="seconda prova">
+      <option name="closed" value="true" />
+      <created>1748603492498</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748603492498</updated>
+    </task>
+    <task id="LOCAL-00005" summary="seconda prova">
+      <option name="closed" value="true" />
+      <created>1748603673417</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748603673417</updated>
+    </task>
+    <task id="LOCAL-00006" summary="sistemato menu area personale, iniziato menu area amministrativa">
+      <option name="closed" value="true" />
+      <created>1748691060752</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748691060752</updated>
+    </task>
+    <task id="LOCAL-00007" summary="sistemazione login">
+      <option name="closed" value="true" />
+      <created>1748693650113</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748693650113</updated>
+    </task>
+    <task id="LOCAL-00008" summary="iniziato funzionalotà ordine">
+      <option name="closed" value="true" />
+      <created>1748716060549</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748716060549</updated>
+    </task>
+    <task id="LOCAL-00009" summary="ordine funziona ma devo integrare indirizzo e pagamento e fattura">
+      <option name="closed" value="true" />
+      <created>1748777658885</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748777658885</updated>
+    </task>
+    <task id="LOCAL-00010" summary="sistemato tabelle">
+      <option name="closed" value="true" />
+      <created>1748781913048</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1748781913048</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fine prima parte seconda funzionalità">
+      <option name="closed" value="true" />
+      <created>1748786641415</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1748786641415</updated>
+    </task>
+    <task id="LOCAL-00012" summary="finita seconda funzionalità">
+      <option name="closed" value="true" />
+      <created>1748798241802</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1748798241802</updated>
+    </task>
+    <task id="LOCAL-00013" summary="finita terza funzionalità">
+      <option name="closed" value="true" />
+      <created>1748810944994</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1748810944999</updated>
+    </task>
+    <task id="LOCAL-00014" summary="finita quarta funzionalità">
+      <option name="closed" value="true" />
+      <created>1748853275736</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1748853275736</updated>
+    </task>
+    <task id="LOCAL-00015" summary="inserimento nomi dopo benvenuto">
+      <option name="closed" value="true" />
+      <created>1748856830601</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1748856830601</updated>
+    </task>
+    <task id="LOCAL-00016" summary="inserimento nomi dopo benvenuto">
+      <option name="closed" value="true" />
+      <created>1748860135432</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1748860135432</updated>
+    </task>
+    <task id="LOCAL-00017" summary="sistemazione tabelle per errore modello logico e E/R">
+      <option name="closed" value="true" />
+      <created>1748875000849</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1748875000849</updated>
+    </task>
+    <task id="LOCAL-00018" summary="sistemazione tabelle per errore modello logico e E/R">
+      <option name="closed" value="true" />
+      <created>1749131426786</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749131426787</updated>
+    </task>
+    <task id="LOCAL-00019" summary="login vulnerabile">
+      <option name="closed" value="true" />
+      <created>1749208718437</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1749208718438</updated>
+    </task>
+    <task id="LOCAL-00020" summary="modificato sessione, sessione separata tra amministratore e cliente">
+      <option name="closed" value="true" />
+      <created>1749227662505</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1749227662505</updated>
+    </task>
+    <task id="LOCAL-00021" summary="sql injection">
+      <option name="closed" value="true" />
+      <created>1749636528907</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1749636528908</updated>
+    </task>
+    <task id="LOCAL-00022" summary="rifiniture">
+      <option name="closed" value="true" />
+      <created>1749643872095</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1749643872095</updated>
+    </task>
+    <task id="LOCAL-00023" summary="rifiniture">
+      <option name="closed" value="true" />
+      <created>1749664142326</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1749664142327</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="prima prova" />
+    <MESSAGE value="seconda prova" />
+    <MESSAGE value="sistemato menu area personale, iniziato menu area amministrativa" />
+    <MESSAGE value="sistemazione login" />
+    <MESSAGE value="iniziato funzionalotà ordine" />
+    <MESSAGE value="ordine funziona ma devo integrare indirizzo e pagamento e fattura" />
+    <MESSAGE value="sistemato tabelle" />
+    <MESSAGE value="fine prima parte seconda funzionalità" />
+    <MESSAGE value="finita seconda funzionalità" />
+    <MESSAGE value="finita terza funzionalità" />
+    <MESSAGE value="finita quarta funzionalità" />
+    <MESSAGE value="inserimento nomi dopo benvenuto" />
+    <MESSAGE value="sistemazione tabelle per errore modello logico e E/R" />
+    <MESSAGE value="login vulnerabile" />
+    <MESSAGE value="modificato sessione, sessione separata tra amministratore e cliente" />
+    <MESSAGE value="sql injection" />
+    <MESSAGE value="rifiniture" />
+    <option name="LAST_COMMIT_MESSAGE" value="rifiniture" />
+  </component>
+</project>
