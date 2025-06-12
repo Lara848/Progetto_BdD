@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Storico degli Ordini - Tenuta Beltrani{% endblock %}
+{% block content %}
+    <h1 align="center">Benvenuto nell'Area Personale</h1>
+
+    <div class="container">
+        <div class="left-col">
+            <h2>MENU</h2>
+            <a href="/menu_personale" class="menu-link">Home</a>
+            <a href="/ordine" class="menu-link">Esegui ordini</a>
+            <a href="/storico" class="menu-link">Storico degli ordini</a>
+            <a href="/ins_recensione" class="menu-link">Inserisci recensioni</a>
+
+            <form method="post" action="{% url 'logout_cliente' %}">
+                {% csrf_token %}
+                <button type="submit" class="menu-link logout-link">Logout</button>
+            </form>
+        </div>
+
+        <div class="right-col">
+            <h2>I tuoi Ordini</h2>
+            {% if ordini %}
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Totale</th>
+                        <th>Stato</th>
+                        <th>Metodo Pagamento</th>
+                        <th>Fattura</th>
+                        <th>Prodotti</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ordine in ordini %}
+                        <tr>
+                            <td>{{ ordine.data_ordine }}</td>
+                            <td>{{ ordine.totale }} €</td>
+                            <td>{{ ordine.stato }}</td>
+                            <td>{{ ordine.metodo_pagamento }}</td>
+                            <td>
+                                {% if ordine.richiesta_fattura %}
+                                    Si
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for dettaglio in ordine.dettaglio_ordine_set.all %}
+                                        <li>{{ dettaglio.prodotto.nome }} x {{ dettaglio.quantita }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Non hai ancora effettuato ordini.</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

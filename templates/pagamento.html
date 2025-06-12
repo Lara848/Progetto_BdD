@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Pagamento - Tenuta Beltrani{% endblock %}
+{% block content %}
+<h1 align="center">Benvenuto nell'Area Personale</h1>
+
+<div class="container">
+    <div class="left-col">
+        <h2>MENU</h2>
+        <a href="/menu_personale" class="menu-link">Home</a>
+        <a href="/ordine" class="menu-link">Esegui ordini</a>
+        <a href="/storico" class="menu-link">Storico degli ordini</a>
+        <a href="/ins_recensione" class="menu-link">Inserisci recensioni</a>
+
+        <form method="post" action="{% url 'logout_cliente' %}">
+            {% csrf_token %}
+            <button type="submit" class="menu-link logout-link">Logout</button>
+        </form>
+    </div>
+
+    <div class="right-col">
+        <h2 align="center">Dati spedizione e pagamento</h2>
+
+        <form method="post" action="{% url 'pagamento' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="indirizzo_spedizione" class="form-label">Indirizzo di spedizione</label>
+                <input type="text" class="form-control" id="indirizzo_spedizione" name="indirizzo_spedizione" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="regione_spedizione">Regione di spedizione:</label>
+                <select name="regione_spedizione" id="regione_spedizione" required>
+                    <option value="">-- Seleziona una regione --</option>
+                    <option value="Lazio">Lazio</option>
+                    <option value="Abruzzo">Abruzzo</option>
+                    <option value="Marche">Marche</option>
+                    <option value="Umbria">Umbria</option>
+                    <option value="Toscana">Toscana</option>
+                    <option value="Emilia Romagna">Emilia Romagna</option>
+                    <option value="Liguria">Liguria</option>
+                    <option value="Veneto">Veneto</option>
+                    <option value="Friuli Venezia Giulia">Friuli Venezia Giulia</option>
+                    <option value="Trentino-Alto Adige">Trentino-Alto Adige</option>
+                    <option value="Lombardia">Lombardia</option>
+                    <option value="Piemonte">Piemonte</option>
+                    <option value="Valle d'Aosta">Valle d'Aosta</option>
+                    <option value="Molise">Molise</option>
+                    <option value="Campania">Campania</option>
+                    <option value="Basilicata">Basilicata</option>
+                    <option value="Puglia">Puglia</option>
+                    <option value="Calabria">Calabria</option>
+                    <option value="Sicilia">Sicilia</option>
+                    <option value="Sardegna">Sardegna</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="tipo_consegna" class="form-label">Tipo di consegna</label>
+                <select class="form-select" id="tipo_consegna" name="tipo_consegna" required>
+                    <option value="Standard">Standard</option>
+                    <option value="Espresso">Espresso</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="metodo_pagamento" class="form-label">Metodo di pagamento</label>
+                <select class="form-select" id="metodo_pagamento" name="metodo_pagamento" required>
+                    <option value="Carta di credito">Carta di credito</option>
+                    <option value="PayPal">PayPal</option>
+                    <option value="Bonifico">Bonifico</option>
+                </select>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="richiesta_fattura" name="richiesta_fattura">
+                <label class="form-check-label" for="richiesta_fattura">
+                    Desidero ricevere la fattura
+                </label>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-lg">Conferma Ordine</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Area Personale Vulnerabile- Tenuta Beltrani{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-5"> 
+    <div class="col-md-6"> 
+        <div class="card shadow-sm"> 
+            <div class="card-body"> 
+                <h2 class="card-title text-center mb-4">Accedi all'area personale</h2>
+                <form method="post" action="/personale_vulnerabile" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="text" class="form-control" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    {% if error_message %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error_message }}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary">Accedi</button>
+                    </div>
+                    
+                    <div class="mb-0" align="center">Non ancora registrato?
+                            <a href="/registration_page" style="text-decoration: none; color: #007bff;">Registrati</a>
+                    </div>
+                </form>
+            
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

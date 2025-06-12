@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ordine - Tenuta Beltrani{% endblock %}
+{% block content %}
+
+    <h1 align="center">Benvenuto nell'Area Personale</h1>
+
+    <div class="container">
+        <div class="left-col">
+            <h2>MENU</h2>
+            <a href="/menu_personale" class="menu-link">Home</a>
+            <a href="/ordine" class="menu-link">Esegui ordini</a>
+            <a href="/storico" class="menu-link">Storico degli ordini</a>
+            <a href="/ins_recensione" class="menu-link">Inserisci recensioni</a>
+
+            <form method="post" action="{% url 'logout_cliente' %}">
+                {% csrf_token %}
+                <button type="submit" class="menu-link logout-link">Logout</button>
+            </form>
+        </div>
+
+        <div class="right-col">
+            <h2 align="center">Scegli i prodotti</h2>
+
+            <form method="post" action="{% url 'ordina_multipli' %}">
+                {% csrf_token %}
+                {% for prodotto in prodotti %}
+                    <div class="product-card">
+                        <img src="{{ prodotto.immagine.url }}" alt="{{ prodotto.nome }}" class="product-image">
+                        <div class="product-info">
+                            <h5>{{ prodotto.nome }}</h5>
+                            <p><strong>Prezzo:</strong> €{{ prodotto.prezzo }}</p>
+                            <p><strong>Formato:</strong> {{ prodotto.formato }}</p>
+
+                            <label for="quantita_{{ prodotto.id }}">Quantità:</label>
+                            <select name="quantita_{{ prodotto.id }}" id="quantita_{{ prodotto.id }}">
+                                <option value="" selected>Nessuna</option>
+                                {% for i in range_10 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="text-center mt-4">
+                    <form method="post" action="{% url 'pagamento' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-lg">Procedi con il pagamento</button>
+                    </form>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
