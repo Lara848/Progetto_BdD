@@ -19,6 +19,7 @@ Questo progetto nasce con l'obiettivo di digitalizzare la gestione delle vendite
 ## Modello Entità/Relazione
 
 Il modello Entità-Relazione rappresenta le principali entità del sistema e le loro relazioni, consentendo di gestire utenti, prodotti, ordini, eventi e recensioni in modo strutturato e coerente.
+
 ![Modello E/R](https://github.com/user-attachments/assets/04ee4544-1a9a-4aea-a307-bca8992a561b)
 
 ---
