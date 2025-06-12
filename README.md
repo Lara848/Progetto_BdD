@@ -57,38 +57,60 @@ Per eseguire l'applicazione, è necessario:
 2. Avere accesso a un server **MySQL o MariaDB**, preferibilmente con phpMyAdmin per una gestione semplificata.
 3. Clonare il progetto:
    ```bash
-   git clone https://github.com/tuo-username/tuo-progetto.git
-   cd tuo-progetto
+   git clone https://github.com/Lara848/Progetto_BdD.git
+   cd tenuta
 4. Creare e attivare un ambiente virtuale:
     python -m venv venv
-    source venv/bin/activate  # Su Windows: venv\Scripts\activate
-5. Installare i pacchetti richiesti:
-    pip install django
-    pip install mysqlclient
+    # Linux/macOS
+    source venv/bin/activate  
+    # Su Windows: 
+   In Powershell: .\.venv\Scripts\Activate.ps1
+   In cmd: .\.venv\Scripts\activate.bat
+ 5. Installare le dipendenze
+   pip install -r requirements.txt
+Se non si dispone di un file requirements.txt, si puo procedere con la seguente installazione manuale:
+   pip install django mysqlclient
 
 ---
 
 ## Configurazione del Database
-Il file settings.py deve essere modificato per collegare l'applicazione al database MySQL o MariaDB. Nella sezione DATABASES vanno inseriti i dati di connessione, ad esempio:
+
+1. Importare il database da dump SQL
+   Se disponi di un file `.sql` con il dump del database (ad es. `tenuta_dump.sql`), puoi importarlo nel tuo server MySQL/MariaDB.
+   Metodo 1: via phpMyAdmin
+   - Accedi a phpMyAdmin
+   - Crea un nuovo database (es. tenuta)
+   - Clicca su Importa e carica il file tenuta_dump.sql
+
+2. Il file settings.py deve essere modificato per collegare l'applicazione al database MySQL o MariaDB. Nella sezione DATABASES vanno inseriti i dati di connessione, ad esempio:
+```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nome_database',
+        'NAME': 'tenuta',
         'USER': 'tuo_utente',
         'PASSWORD': 'tua_password',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+```
 È necessario che il database esista e che l’utente abbia i permessi adeguati per l’accesso e la modifica.
 
 ---
 
 ## Utilizzo
+Dopo la configurazione, eseguire i seguenti comandi da terminale per applicare le migrazioni:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+Una volta completato, si può avviare il server locale con:
+```bash
+manage.py runserver
+```
+L'applicazione sarà accessibile all'indirizzo: http://localhost:8000.
 
-Dopo aver completato l’installazione e la configurazione, l’applicazione è pronta per l’uso.
-- Avviare il server di sviluppo con il comando: python manage.py runserver
-- Accedere all’interfaccia web tramite il browser all’indirizzo: http://127.0.0.1:8000
 
 **Web application**
   
