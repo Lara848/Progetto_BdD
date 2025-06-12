@@ -88,7 +88,9 @@ DATABASES = {
 Dopo aver completato l’installazione e la configurazione, l’applicazione è pronta per l’uso.
 - Avviare il server di sviluppo con il comando: python manage.py runserver
 - Accedere all’interfaccia web tramite il browser all’indirizzo: http://127.0.0.1:8000
+
 **Web application**
+  
 **Funzionalità utente**:
 - Creare un account utente per registrarsi e autenticarsi.
 
