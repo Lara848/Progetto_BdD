@@ -78,12 +78,12 @@ Per eseguire l'applicazione, è necessario:
    ```
  6. Installare le dipendenze
     ```
-   pip install -r requirements.txt
-   
-Se non si dispone di un file requirements.txt, si puo procedere con la seguente installazione manuale:
-   ```
-   pip install django mysqlclient
-   ```
+    pip install -r requirements.txt
+    ```
+    Se non si dispone di un file requirements.txt, si puo procedere con la seguente installazione manuale:
+    ```
+    pip install django mysqlclient
+    ```
 
 ---
 
